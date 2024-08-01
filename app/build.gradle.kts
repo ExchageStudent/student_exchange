@@ -39,6 +39,10 @@ android {
     buildFeatures {
         compose = true
     }
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
@@ -59,6 +63,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.fragment)
+    implementation(libs.material)
+    implementation ("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
+    implementation ("com.google.android.material:material:1.6.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
