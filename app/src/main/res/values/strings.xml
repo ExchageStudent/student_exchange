@@ -24,6 +24,8 @@
         <item>매년</item>
         <item>커스텀</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="preview">미리보기</string>
     <string name="save">저장하기</string>

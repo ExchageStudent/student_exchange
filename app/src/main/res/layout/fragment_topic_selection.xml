@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="360dp"
+    android:layout_height="335dp"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/ivcancle"
+            android:layout_width="24dp"
+            android:layout_height="23.58dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/btn_cancle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="주제 선택"
+            android:textSize="18sp"
+            android:fontFamily="@font/font"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/ivcancle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFinish"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="200dp"
+            android:src="@drawable/button_check"
+            app:layout_constraintBottom_toBottomOf="@id/ivcancle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tvUCLA"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:text="UCLA"
+            android:gravity="center"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvKuniv"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:text="중앙대"
+            android:gravity="center"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tvGomTip"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:text="꿀팁"
+            android:gravity="center"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvReview"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:text="후기"
+            android:gravity="center"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="질문"
+        android:gravity="center"
+        android:textColor="#1E1E1E"
+        android:textSize="14sp"
+        android:padding="8dp" />
+
+</LinearLayout>
