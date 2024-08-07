@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">student_exchange</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">exchange</string>
+
+    <string-array name="routine_options">
+        <item>없음</item>
+        <item>매일</item>
+        <item>매주</item>
+        <item>2주</item>
+        <item>매달</item>
+        <item>매년</item>
+        <item>커스텀</item>
+    </string-array>
+
 </resources>
