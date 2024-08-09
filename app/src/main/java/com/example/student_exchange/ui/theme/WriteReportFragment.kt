@@ -1,6 +1,7 @@
 package com.example.exchange
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +30,35 @@ class WriteReportFragment : Fragment() {
             goToNextStep()
         }
 
+        binding.saveButton.setOnClickListener {
+            SavingDialog().showSavingDialog(requireContext(), layoutInflater) {
+            }
+        }
+
+        binding.backArrow.setOnClickListener {
+            navigateBack()
+        }
+
+        binding.previousBtn.setOnClickListener {
+            navigateBack()
+        }
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    // 이전 프래그먼트로 이동하는 함수
+    private fun navigateBack() {
+        // 백 스택에 프래그먼트가 있는 경우 이전 프래그먼트로 이동
+        if (parentFragmentManager.backStackEntryCount > 0) {
+            parentFragmentManager.popBackStack()
+        } else {
+            // 백 스택이 없는 경우 액티비티를 종료 (필요한 경우)
+            activity?.finish()
+        }
     }
 
     private fun setupReportButtons() {

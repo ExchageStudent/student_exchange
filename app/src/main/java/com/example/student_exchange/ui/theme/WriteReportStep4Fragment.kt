@@ -1,15 +1,11 @@
 package com.example.exchange
 
-import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -28,20 +24,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.DialogSaveReportBinding
-import com.example.exchange.databinding.FragmentWriteReportStep2Binding
+import com.example.exchange.databinding.FragmentWriteReportStep4Binding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class WriteReportStep2Fragment : Fragment() {
-    private lateinit var binding: FragmentWriteReportStep2Binding
-    private lateinit var savingDialog: SavingDialog
-    private var nextstepButton: Button? = null
+
+class WriteReportStep4Fragment : Fragment() {
+    private lateinit var binding: FragmentWriteReportStep4Binding
     private var selectedItemsText = mutableSetOf<String>()
     private var itemIndex = 6 // 기존 항목 개수
-
     private val REQUEST_IMAGE_PICK = 1
     private val maxPhotos = 4
     private val photoUris = mutableListOf<Uri>()
@@ -50,18 +42,16 @@ class WriteReportStep2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWriteReportStep2Binding.inflate(inflater, container, false)
-
+        binding = FragmentWriteReportStep4Binding.inflate(inflater, container, false)
         val mainActivity = activity as MainActivity
         val report = mainActivity.getReport()
 
         setupInitialItemSelections()
 
-        binding.addCourseReview.setOnClickListener {
+        // addCourseReview 버튼 클릭 시 다이얼로그를 표시하도록 설정
+        binding.addEtcActivity.setOnClickListener {
             showAddReviewDialog()
         }
-
-        nextstepButton = binding.nextBtn
 
         binding.addReportPhoto.setOnClickListener {
             goGallery()
@@ -70,11 +60,9 @@ class WriteReportStep2Fragment : Fragment() {
         updatePhotoCount()
         updateNextButtonState()
 
-        nextstepButton?.setOnClickListener {
-            report.subjectTitle = binding.courseName.text.toString()
-            report.subjectReview = selectedItemsText.joinToString("\n")
-            Log.d("WriteReportStep2", "Report Data: $report")
-
+        binding.nextBtn.setOnClickListener {
+            report.gainReview = selectedItemsText.joinToString("\n")
+            Log.d("WriteReportStep3", "Report Data: $report")
             goToNextStep(report)
         }
 
@@ -92,10 +80,6 @@ class WriteReportStep2Fragment : Fragment() {
             navigateBack()
         }
 
-        binding.previewButton.setOnClickListener {
-            navigateToPreviewReportFragment(report)
-        }
-
         return binding.root
     }
 
@@ -108,18 +92,6 @@ class WriteReportStep2Fragment : Fragment() {
             // 백 스택이 없는 경우 액티비티를 종료 (필요한 경우)
             activity?.finish()
         }
-    }
-
-    // PreviewReportFragment로 이동하는 함수
-    private fun navigateToPreviewReportFragment(report: Report?) {
-        val previewFragment = PreviewReportFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable("report", report)
-            }
-        }
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, previewFragment)
     }
 
     private fun setupInitialItemSelections() {
@@ -200,7 +172,7 @@ class WriteReportStep2Fragment : Fragment() {
         newItemLayout.addView(newTextView)
 
         // 기존 레이아웃에 새로 만든 항목 레이아웃 추가
-        binding.courseReviewContainer.addView(newItemLayout)
+        binding.gainActivityContainer.addView(newItemLayout)
 
         // 새 항목에 대해 클릭 리스너 설정
         setupItemSelection(newCheckImage, newTextView, itemIndex, reviewText)
@@ -315,29 +287,26 @@ class WriteReportStep2Fragment : Fragment() {
 
     private fun updateNextButtonState() {
         if (selectedItemsText.isNotEmpty()) {
-            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_focus)
-            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            nextstepButton?.isEnabled = true
+            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_focus)
+            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.nextBtn.isEnabled = true
         } else {
-            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_previous)
-            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            nextstepButton?.isEnabled = false
+            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_previous)
+            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.nextBtn.isEnabled = false
         }
     }
 
-
-
     private fun goToNextStep(report: Report) {
-        Log.d("WriteReportStep2", "Passing Report to Step 3: $report")
-        val thirdStep = WriteReportStep3Fragment()
+        Log.d("WriteReportStep4", "Passing Report to Step 5: $report")
+        val fifthStep = WriteReportStep5Fragment()
         val bundle = Bundle()
         bundle.putParcelable("report", report) // Report 객체를 번들에 저장
-        thirdStep.arguments = bundle
-
+        fifthStep.arguments = bundle
         parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, thirdStep) // R.id.main_frm은 프래그먼트를 교체할 컨테이너 ID
+            .replace(R.id.main_frm, fifthStep)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .addToBackStack(null) // 뒤로 가기 버튼을 통해 현재 프래그먼트로 돌아올 수 있게 함
+            .addToBackStack(null)
             .commit()
     }
 
@@ -347,3 +316,4 @@ class WriteReportStep2Fragment : Fragment() {
         (activity as MainActivity).hideBottomNavigation()
     }
 }
+

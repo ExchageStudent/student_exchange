@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var travelFragment: TravelFragment
     private val scheduleList = mutableListOf<Schedule>()
+    private val report = Report()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     fun addSchedule(schedule: Schedule) {
         scheduleList.add(schedule)
         travelFragment.updateSchedules(scheduleList)
+    }
+
+    fun getReport(): Report {
+        return report // Report 객체를 반환
     }
 
     private fun initBottomNavigation() {

@@ -21,4 +21,5 @@
     <color name="routine_default_color">#1D1B204D</color>
     <color name="tag_default_color">#1D1B20</color>
     <color name="skyblue">#0085FF1A</color>
+    <color name="divider">#E7E7E7</color>
 </resources>

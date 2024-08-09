@@ -24,8 +24,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    android:src="@drawable/navigate_before"
-                    android:contentDescription="@strings/back" />
+                    android:src="@drawable/navigate_before" />
 
                 <TextView
                     android:id="@+id/write_report"
@@ -84,11 +83,11 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="8dp"
-                    android:background="@drawable/progress_active"
+                    android:background="@drawable/progress_inactive"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray"
                     android:textSize="16sp" />
 
                 <!-- Step 3 -->
@@ -96,11 +95,11 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
+                    android:background="@drawable/progress_active"
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="3"
-                    android:textColor="@color/gray"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
                 <!-- Step 4 -->
@@ -143,33 +142,33 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="수강 과목을 입력해 주세요"
+                android:text="기타 활동을 입력해 주세요"
                 android:textSize="16dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp" />
 
             <EditText
-                android:id="@+id/course_name"
+                android:id="@+id/etc_activity_name"
                 android:layout_width="312dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="12dp"
-                android:hint="수강 과목명"
+                android:hint="기타 활동명"
                 android:paddingStart="24dp"
                 android:background="@drawable/oval_background_8_gray2" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="수강 과목 후기"
+                android:text="기타 활동 후기"
                 android:layout_marginStart="36dp"
                 android:textSize="16dp"
                 android:textColor="@color/font"
                 android:layout_marginTop="36dp"/>
 
             <LinearLayout
-                android:id="@+id/course_review_container"
+                android:id="@+id/etc_activity_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -344,7 +343,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/add_course_review"
+                android:id="@+id/add_etc_activity"
                 android:layout_width="340dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="36dp"
@@ -434,7 +433,7 @@
                     android:id="@+id/add_subject"
                     android:layout_width="140dp"
                     android:layout_height="40dp"
-                    android:text="과목 추가하기"
+                    android:text="활동 추가하기"
                     android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="24dp"

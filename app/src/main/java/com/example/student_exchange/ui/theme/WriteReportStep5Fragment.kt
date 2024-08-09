@@ -1,15 +1,11 @@
 package com.example.exchange
 
-import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -28,18 +24,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.DialogSaveReportBinding
-import com.example.exchange.databinding.FragmentWriteReportStep2Binding
+import com.example.exchange.databinding.FragmentWriteReportStep5Binding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class WriteReportStep2Fragment : Fragment() {
-    private lateinit var binding: FragmentWriteReportStep2Binding
-    private lateinit var savingDialog: SavingDialog
+class WriteReportStep5Fragment : Fragment() {
+    private lateinit var binding: FragmentWriteReportStep5Binding
     private var nextstepButton: Button? = null
-    private var selectedItemsText = mutableSetOf<String>()
+    private var selectedMerits = mutableSetOf<Int>()
+    private var selectedDismerits = mutableSetOf<Int>()
     private var itemIndex = 6 // 기존 항목 개수
 
     private val REQUEST_IMAGE_PICK = 1
@@ -50,30 +44,24 @@ class WriteReportStep2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWriteReportStep2Binding.inflate(inflater, container, false)
+        binding = FragmentWriteReportStep5Binding.inflate(inflater, container, false)
 
         val mainActivity = activity as MainActivity
         val report = mainActivity.getReport()
 
+
         setupInitialItemSelections()
 
-        binding.addCourseReview.setOnClickListener {
+        /*
+        binding.addEtcActivity.setOnClickListener {
             showAddReviewDialog()
-        }
+        } */
 
-        nextstepButton = binding.nextBtn
-
-        binding.addReportPhoto.setOnClickListener {
-            goGallery()
-        }
-
-        updatePhotoCount()
         updateNextButtonState()
 
-        nextstepButton?.setOnClickListener {
-            report.subjectTitle = binding.courseName.text.toString()
-            report.subjectReview = selectedItemsText.joinToString("\n")
-            Log.d("WriteReportStep2", "Report Data: $report")
+        binding.nextBtn.setOnClickListener {
+            report.merits = selectedMerits.map { index -> getMeritText(index) }
+            report.dismerits = selectedDismerits.map { index -> getDismeritText(index) }
 
             goToNextStep(report)
         }
@@ -92,10 +80,6 @@ class WriteReportStep2Fragment : Fragment() {
             navigateBack()
         }
 
-        binding.previewButton.setOnClickListener {
-            navigateToPreviewReportFragment(report)
-        }
-
         return binding.root
     }
 
@@ -110,39 +94,45 @@ class WriteReportStep2Fragment : Fragment() {
         }
     }
 
-    // PreviewReportFragment로 이동하는 함수
-    private fun navigateToPreviewReportFragment(report: Report?) {
-        val previewFragment = PreviewReportFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable("report", report)
-            }
-        }
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, previewFragment)
-    }
-
     private fun setupInitialItemSelections() {
-        // Set up initial item selections with click listeners
-        setupItemSelection(binding.check1, binding.checkTv1, 1, "대학 생활 중 가장 보람찬 수업")
-        setupItemSelection(binding.check2, binding.checkTv2, 2, "발표와 야외 수업 활동이 많아 만족도가 큼")
-        setupItemSelection(binding.check3, binding.checkTv3, 3, "시험 부담이 적어 만족도가 큼")
-        setupItemSelection(binding.check4, binding.checkTv4, 4, "영어 실력을 향상하기 위한 수업")
-        setupItemSelection(binding.check5, binding.checkTv5, 5, "과제가 많았음")
-        setupItemSelection(binding.check6, binding.checkTv6, 6, "그 과정에서 많은 것을 배울 수 있었음")
+        // Set up initial item selections with click listeners for merits
+        setupItemSelection(binding.check1, binding.checkTv1, 1, isMerit = true)
+        setupItemSelection(binding.check2, binding.checkTv2, 2, isMerit = true)
+        setupItemSelection(binding.check3, binding.checkTv3, 3, isMerit = true)
+        setupItemSelection(binding.check4, binding.checkTv4, 4, isMerit = true)
+        setupItemSelection(binding.check5, binding.checkTv5, 5, isMerit = true)
+        setupItemSelection(binding.check6, binding.checkTv6, 6, isMerit = true)
+
+        // Set up initial item selections with click listeners for dismerits
+        setupItemSelection(binding.dismerits1, binding.dismeritsTv1, 1, isMerit = false)
+        setupItemSelection(binding.dismerits2, binding.dismeritsTv2, 2, isMerit = false)
+        setupItemSelection(binding.dismerits3, binding.dismeritsTv3, 3, isMerit = false)
+        setupItemSelection(binding.dismerits4, binding.dismeritsTv4, 4, isMerit = false)
+        setupItemSelection(binding.dismerits5, binding.dismeritsTv5, 5, isMerit = false)
+        setupItemSelection(binding.dismerits6, binding.dismeritsTv6, 6, isMerit = false)
     }
 
-    private fun setupItemSelection(imageView: ImageView, textView: TextView, index: Int, itemText: String) {
+    private fun setupItemSelection(imageView: ImageView, textView: TextView, index: Int, isMerit: Boolean) {
         val itemLayout = imageView.parent as View
         itemLayout.setOnClickListener {
-            if (selectedItemsText.contains(itemText)) {
-                selectedItemsText.remove(itemText)
-                updateItemState(imageView, textView, false)
+            if (isMerit) {
+                if (selectedMerits.contains(index)) {
+                    selectedMerits.remove(index)
+                    updateItemState(imageView, textView, false)
+                } else {
+                    selectedMerits.add(index)
+                    updateItemState(imageView, textView, true)
+                }
             } else {
-                selectedItemsText.add(itemText)
-                updateItemState(imageView, textView, true)
+                if (selectedDismerits.contains(index)) {
+                    selectedDismerits.remove(index)
+                    updateItemState(imageView, textView, false)
+                } else {
+                    selectedDismerits.add(index)
+                    updateItemState(imageView, textView, true)
+                }
             }
-            updateNextButtonState() // 항목 선택 상태 변경 시 버튼 상태 업데이트
+            updateNextButtonState()
         }
     }
 
@@ -155,6 +145,31 @@ class WriteReportStep2Fragment : Fragment() {
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray)) // 기본 텍스트 색상 설정
         }
     }
+
+    private fun getMeritText(index: Int): String {
+        return when (index) {
+            1 -> "대학 생활 중 가장 보람찬 수업"
+            2 -> "발표와 야외 수업 활동이 많아 만족도가 큼"
+            3 -> "시험 부담이 적어 만족도가 큼"
+            4 -> "영어 실력을 향상하기 위한 수업"
+            5 -> "과제 많았음"
+            6 -> "그 과정에서 많은 것을 배울 수 있었음"
+            else -> ""
+        }
+    }
+
+    private fun getDismeritText(index: Int): String {
+        return when (index) {
+            1 -> "대학 생활 중 가장 보람찬 수업"
+            2 -> "발표와 야외 수업 활동이 많아 만족도가 큼"
+            3 -> "시험 부담이 적어 만족도가 큼"
+            4 -> "영어 실력을 향상하기 위한 수업"
+            5 -> "과제 많았음"
+            6 -> "그 과정에서 많은 것을 배울 수 있었음"
+            else -> ""
+        }
+    }
+
 
     private fun addCustomCourseReview(reviewText: String) {
         itemIndex += 1 // 새로운 항목의 인덱스 증가
@@ -200,10 +215,10 @@ class WriteReportStep2Fragment : Fragment() {
         newItemLayout.addView(newTextView)
 
         // 기존 레이아웃에 새로 만든 항목 레이아웃 추가
-        binding.courseReviewContainer.addView(newItemLayout)
+        binding.meritsContainer.addView(newItemLayout)
 
         // 새 항목에 대해 클릭 리스너 설정
-        setupItemSelection(newCheckImage, newTextView, itemIndex, reviewText)
+        setupItemSelection(newCheckImage, newTextView, itemIndex, isMerit = true)
     }
 
     // dp를 px로 변환하는 확장 함수
@@ -266,76 +281,26 @@ class WriteReportStep2Fragment : Fragment() {
         dialog.show()
     }
 
-    // 사진 첨부하기
-    // 갤러리로 이동하기
-    private fun goGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK)
-        galleryIntent.type = "image/*" // 선택한 파일의 종류를 지정 (이미지만 지정)
-        startActivityForResult(galleryIntent, REQUEST_IMAGE_PICK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
-            data?.data?.let { uri ->
-                val bitmap = getBitmapFromUri(uri)
-                val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
-                photoUris.add(uri)
-                addImageView(resizedBitmap)
-                updatePhotoCount()
-            }
-        }
-    }
-
-    private fun getBitmapFromUri(uri: Uri): Bitmap {
-        val inputStream = requireActivity().contentResolver.openInputStream(uri)
-        return BitmapFactory.decodeStream(inputStream)
-    }
-
-    private fun addImageView(bitmap: Bitmap) {
-        val imageView = ImageView(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(100.dpToPx(), 100.dpToPx())
-            setImageBitmap(bitmap)
-        }
-        binding.photoPreviewContainer.addView(imageView)
-    }
-
-    // 사진 개수 업데이트
-    private fun updatePhotoCount() {
-        val photoCountText = "${photoUris.size}/$maxPhotos"
-        binding.photoCount.text = photoCountText
-        if (photoUris.size == maxPhotos) {
-            binding.photoCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
-            binding.addReportPhoto.isClickable = false
-        } else {
-            binding.photoCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-            binding.addReportPhoto.isClickable = true
-        }
-    }
-
     private fun updateNextButtonState() {
-        if (selectedItemsText.isNotEmpty()) {
-            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_focus)
-            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            nextstepButton?.isEnabled = true
+        if (selectedMerits.isNotEmpty() || selectedDismerits.isNotEmpty()) {
+            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_focus)
+            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.nextBtn.isEnabled = true
         } else {
-            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_previous)
-            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            nextstepButton?.isEnabled = false
+            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_previous)
+            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.nextBtn.isEnabled = false
         }
     }
-
-
 
     private fun goToNextStep(report: Report) {
-        Log.d("WriteReportStep2", "Passing Report to Step 3: $report")
-        val thirdStep = WriteReportStep3Fragment()
+        val sixthStep = WriteReportStep6Fragment()
         val bundle = Bundle()
         bundle.putParcelable("report", report) // Report 객체를 번들에 저장
-        thirdStep.arguments = bundle
+        sixthStep.arguments = bundle
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, thirdStep) // R.id.main_frm은 프래그먼트를 교체할 컨테이너 ID
+            .replace(R.id.main_frm, sixthStep) // R.id.main_frm은 프래그먼트를 교체할 컨테이너 ID
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .addToBackStack(null) // 뒤로 가기 버튼을 통해 현재 프래그먼트로 돌아올 수 있게 함
             .commit()
