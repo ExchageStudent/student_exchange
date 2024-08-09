@@ -27,7 +27,8 @@
             android:layout_marginStart="5dp"
             android:text="주제 선택"
             android:textSize="18sp"
-            android:fontFamily="@font/font"
+            android:fontFamily="@font/pretendardbold"
+            android:textColor="@color/titleblack"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/ivcancle"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,6 +58,7 @@
             android:text="UCLA"
             android:gravity="center"
             android:textColor="#1E1E1E"
+            android:fontFamily="@font/pretendardmedium"
             android:textSize="14sp"
             android:padding="8dp" />
 
@@ -66,6 +68,7 @@
             android:layout_height="55dp"
             android:text="중앙대"
             android:gravity="center"
+            android:fontFamily="@font/pretendardmedium"
             android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
@@ -83,6 +86,7 @@
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="꿀팁"
+            android:fontFamily="@font/pretendardmedium"
             android:gravity="center"
             android:textColor="#1E1E1E"
             android:textSize="14sp"
@@ -93,6 +97,7 @@
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="후기"
+            android:fontFamily="@font/pretendardmedium"
             android:gravity="center"
             android:textColor="#1E1E1E"
             android:textSize="14sp"
@@ -104,6 +109,7 @@
         android:layout_width="150dp"
         android:layout_height="55dp"
         android:text="질문"
+        android:fontFamily="@font/pretendardmedium"
         android:gravity="center"
         android:textColor="#1E1E1E"
         android:textSize="14sp"

@@ -37,20 +37,40 @@
                 android:layout_toEndOf="@id/ivProfilePicture"
                 android:text="교환하자"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/pretendardbold"
+                android:textColor="@color/titleblack"
+                />
 
-            <TextView
-                android:id="@+id/tvYear"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvNickname"
                 android:layout_toEndOf="@id/ivProfilePicture"
                 android:layout_marginTop="5dp"
-                android:text="1학년"
                 android:background="@drawable/rating_background"
-                android:padding="2dp"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                >
+
+                <TextView
+                    android:id="@+id/tvYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1학년"
+                    android:padding="2dp"
+                    android:fontFamily="@font/pretendardmedium"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:layout_marginStart="4dp"/>
+
+                <ImageView
+                    android:id="@+id/ivGradeNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/tvYear"
+                    android:src="@drawable/grade_next" /> <!-- 여기서 간격 조정 -->
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tvSchoolInfo"
@@ -58,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ivProfilePicture"
                 android:text="Bruno University, Biotech\n중앙대학교, 생명과학"
+                android:fontFamily="@font/pretendardmedium"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -84,6 +105,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="교환머니"
+                    android:fontFamily="@font/pretendardregular"
+                    android:textColor="#565656"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp" />
 
@@ -95,14 +118,18 @@
                     android:textSize="18sp"
                     android:layout_marginTop="8dp"
                     android:layout_below="@id/tvExchangePoints"
-                    android:padding="8dp" />
+                    android:fontFamily="@font/pretendardbold"
+                    android:textColor="#565656"
+                     />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/btn_next"
-                    android:layout_marginTop="36.5dp"
-                    android:layout_marginStart="310dp"/>
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    />
             </RelativeLayout>
 
 
@@ -116,13 +143,30 @@
             android:background="#D3D3D3" />
 
         <!-- 내가 작성한 글 섹션 -->
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="내가 작성한 글"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 작성한 글"
+                android:textSize="16sp"
+                android:fontFamily="@font/pretendardbold"
+                android:textColor="#1E1E1E"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_next"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMyPosts"
@@ -134,14 +178,31 @@
             android:paddingEnd="16dp"/>
 
         <!-- 스크랩한 글 섹션 -->
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="스크랩한 글"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvScrapTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스크랩한 글"
+                android:textSize="16sp"
+                android:fontFamily="@font/pretendardbold"
+                android:textColor="#1E1E1E"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/btnNextScrap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_next"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvScrapedPosts"

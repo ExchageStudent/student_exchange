@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header Section with Title and Icons -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/ivEdit"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/navigate_before"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UCLA"
+            android:textSize="18sp"
+            android:fontFamily="@font/pretendardbold"
+            android:textColor="@color/titleblack"/>
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/tabler_trash"
+            android:layout_marginEnd="8dp" />
+
+        <ImageView
+            android:id="@+id/ivRecord"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/bottom_nav_record"
+            app:tint="@color/font"/>
+    </LinearLayout>
+
+    <!-- Post Content Section -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/profile_image"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvAuthorInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jkun123 · UCLA/중앙대"
+            android:fontFamily="@font/pretendardregular"
+            android:textSize="12sp"
+            android:textColor="@color/gray"
+            android:paddingBottom="8dp"
+            />
+    </LinearLayout>
+
+    <!-- Post Title -->
+    <TextView
+        android:id="@+id/tvPostTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UCLA 근처 맛집 추천"
+        android:textSize="16sp"
+        android:fontFamily="@font/pretendardsemibold"
+        android:textColor="@color/font"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Post Body -->
+    <TextView
+        android:id="@+id/tvPostBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UCLA 갔다가 진짜 맛있는 맛집 발견했는데 정말 장난 아니네요!! 맛이... 여기는 모두가 알아야해요 정말"
+        android:textSize="14sp"
+        android:fontFamily="@font/pretendardregular"
+        android:textColor="@color/font2"
+        android:paddingBottom="16dp"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Post Meta Info -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvScrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="120"
+            android:textSize="12sp"
+            android:fontFamily="@font/pretendardregular"
+            android:textColor="@color/gray"
+            android:drawableLeft="@drawable/post_scrap"
+            android:drawablePadding="4dp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:textSize="12sp"
+            android:fontFamily="@font/pretendardregular"
+            android:textColor="@color/gray"
+
+            android:drawableLeft="@drawable/iconamoon_heart"
+            android:drawablePadding="4dp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/tvPostDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2024.07.19"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            android:layout_weight="1"
+            android:gravity="end" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCommentsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="댓글 2개"
+        android:textSize="16sp"
+        android:fontFamily="@font/pretendardsemibold"
+        android:textColor="@color/font"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Comment 1 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <!-- User Icon -->
+            <ImageView
+                android:id="@+id/ivCommenter1"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/profile_image"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Text Section -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:id="@+id/tvCommentText1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정말 가봐야겠네요!"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+                <!-- Username and Time -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvCommenterName1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user123"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/gray0"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvCommentTime1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2분전"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/font" />
+
+                </LinearLayout>
+
+                <!-- Comment Text -->
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"> <!-- 전체 레이아웃에서 자식 요소를 끝으로 정렬 -->
+
+                <!-- Reply Button -->
+                <Button
+                    android:id="@+id/btnReplyToReply1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="답글"
+                    android:fontFamily="@font/pretendardregular"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Comment 2 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <!-- User Icon -->
+            <ImageView
+                android:id="@+id/ivCommenter2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/profile_image"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Text Section -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:id="@+id/tvCommentText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정말 가봐야겠네요!"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+                <!-- Username and Time -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvCommenterName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user123"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/gray0"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvCommentTime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2분전"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/font" />
+
+                </LinearLayout>
+
+                <!-- Comment Text -->
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!-- Replies for Comment 2 -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="32dp"> <!-- Indent the reply to differentiate -->
+
+        <!-- Reply 1 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <!-- User Icon -->
+            <ImageView
+                android:id="@+id/ivReplier2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/profile_image"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Text Section -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp">
+
+                <!-- Comment Text -->
+                <TextView
+                    android:id="@+id/tvReplyText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정말 가봐야겠네요!"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/pretendardregular"
+                    android:textColor="@color/font"
+                    android:layout_marginTop="4dp" />
+
+                <!-- Username and Time -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvReplierName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="user123"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/gray0"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvReplyTime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2분전"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/pretendardregular"
+                        android:textColor="@color/font" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Reply Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"> <!-- 전체 레이아웃에서 자식 요소를 끝으로 정렬 -->
+
+                <!-- Reply Button -->
+                <Button
+                    android:id="@+id/btnReplyToReply2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="답글"
+                    android:fontFamily="@font/pretendardregular"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

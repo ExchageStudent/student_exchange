@@ -1,0 +1,116 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    android:elevation="4dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 이미지 그룹 -->
+        <LinearLayout
+            android:id="@+id/imageGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:layout_margin="4dp"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:layout_margin="4dp"
+                android:visibility="gone"
+                android:adjustViewBounds="true"/>
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:layout_margin="4dp"
+                android:visibility="gone"
+                android:adjustViewBounds="true"/>
+        </LinearLayout>
+
+        <!-- 텍스트 정보 -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="7일 동안 파리 정복하기✨"
+            android:textSize="16sp"
+            android:textColor="#1E1E1E"
+            android:fontFamily="@font/pretendardbold"/>
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="파리 6박 7일"
+            android:textSize="14sp"
+            android:textColor="#9E9E9E"/>
+
+        <!-- 뷰 카운트, 좋아요 아이콘 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/viewIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/eye_viewer"
+                android:layout_marginEnd="4dp"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tvViewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:textSize="14sp"
+                android:textColor="#9E9E9E"/>
+
+            <ImageView
+                android:id="@+id/scrapIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/post_scrap"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/tvScrapCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:textSize="14sp"
+                android:textColor="#9E9E9E"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
