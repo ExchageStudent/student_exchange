@@ -105,6 +105,9 @@
             android:layout_width="45dp"
             android:layout_height="22dp"
             android:text="혜택"
+            android:fontFamily="@font/pretendardmedium"
+            android:textSize="12sp"
+            android:textColor="@color/gray0"
             android:background="@drawable/topic_background"
             android:gravity="center"/>
 
@@ -173,6 +176,9 @@
             android:layout_width="45dp"
             android:layout_height="22dp"
             android:text="혜택"
+            android:fontFamily="@font/pretendardmedium"
+            android:textSize="12sp"
+            android:textColor="@color/gray0"
             android:background="@drawable/topic_background"
             android:gravity="center"/>
 
@@ -242,6 +248,9 @@
             android:layout_width="45dp"
             android:layout_height="22dp"
             android:text="혜택"
+            android:fontFamily="@font/pretendardmedium"
+            android:textSize="12sp"
+            android:textColor="@color/gray0"
             android:background="@drawable/topic_background"
             android:gravity="center"/>
 

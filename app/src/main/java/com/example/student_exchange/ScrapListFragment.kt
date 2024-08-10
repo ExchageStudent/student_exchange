@@ -1,59 +1,74 @@
 package com.example.student_exchange
 
+import MyPostsAdapter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.student_exchange.adapter.ScrapAdapter
+import com.example.student_exchange.databinding.FragmentMyPostsBinding
+import com.example.student_exchange.model.MyPageMineItem
+import com.example.student_exchange.model.MyPostsItem
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ScrapListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ScrapListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentMyPostsBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // View Binding을 통해 프래그먼트 레이아웃을 인플레이트합니다.
+        _binding = FragmentMyPostsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 가짜 포스트 데이터를 생성합니다.
+        val posts = listOf(
+            MyPostsItem(
+                title = "7일 동안 파리 정복하기✨",
+                subtitle = "파리 6박 7일",
+                imageUrls = listOf(
+                    "https://example.com/image1.jpg",
+                    "https://example.com/image2.jpg",
+                    "https://example.com/image3.jpg"
+                ),
+                viewCount = 120,
+                scrapCount = 120
+            ),
+            MyPostsItem(
+                title = "헬싱키, 한 템포 쉬고 싶을 때 찾는 곳",
+                subtitle = "헬싱키 여행 후기",
+                imageUrls = listOf(
+                    "https://example.com/image1.jpg"
+                ),
+                viewCount = 95,
+                scrapCount = 45
+            )
+        )
+
+        // RecyclerView 설정
+        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewPosts.adapter = MyPostsAdapter(posts)
+
+        // 'backArrow'라는 ImageView를 찾아 초기화합니다.
+        val backArrow: ImageView = view.findViewById(R.id.backArrow)
+
+        // 'backArrow' 클릭 리스너 설정
+        backArrow.setOnClickListener {
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scrap_list, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ScrapListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ScrapListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

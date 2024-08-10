@@ -1,63 +1,149 @@
 package com.example.student_exchange
 
+import HotSectionFragment
+import android.content.Intent
 import android.os.Bundle
-import android.widget.FrameLayout
-import android.widget.ImageView
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
-import com.example.student_exchange.adapter.CommunityAdapter
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.student_exchange.adapter.HotAdapter
+import com.example.student_exchange.databinding.ActivityCommunityBinding
 import com.example.student_exchange.model.HotItem
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CommunityActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityCommunityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_community)
+        binding = ActivityCommunityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        // Set up Toolbar
+        binding.toolbarIcon0.setColorFilter(ContextCompat.getColor(this, R.color.titleblack))
 
-        val imageView: ImageView = findViewById(R.id.toolbarIcon0)
-        imageView.setColorFilter(ContextCompat.getColor(this, R.color.titleblack))
-
-        // Fragment 추가
+        // Set up Fragments
         if (savedInstanceState == null) {
-            val hotFragmentContainer = findViewById<FrameLayout>(R.id.fragmentHotSectionContainer)
             supportFragmentManager.beginTransaction()
-                .replace(hotFragmentContainer.id, HotSectionFragment())
+                .replace(R.id.fragmentHotSectionContainer, HotSectionFragment())
                 .commit()
 
-            val postFragmentContainer = findViewById<FrameLayout>(R.id.fragmentPostSectionContainer)
             supportFragmentManager.beginTransaction()
-                .replace(postFragmentContainer.id, PostSectionFragment())
+                .replace(R.id.fragmentPostSectionContainer, PostSectionFragment())
                 .commit()
         }
-        // toolbarIcon0 클릭 시 WritePostFragment로 이동
-        val toolbarIcon: ImageView = findViewById(R.id.toolbarIcon0)  // 수정: view가 아닌 findViewById 사용
-        toolbarIcon.setOnClickListener {
-            // WritePostFragment로 이동
-            val transaction = supportFragmentManager.beginTransaction() // 수정: parentFragmentManager가 아닌 supportFragmentManager 사용
-            transaction.replace(R.id.fragment_container, WritePostFragment()) // 수정: R.id.fragment_container를 적절한 컨테이너 ID로 변경
-            transaction.addToBackStack(null) // 뒤로가기 시 이전 프래그먼트로 돌아가기 위해 스택에 추가
-            transaction.commit()
+
+        // Toolbar Icon Click
+        binding.toolbarIcon0.setOnClickListener {
+            showWritePostFragment()
         }
 
-
-        // TabLayout과 ViewPager2 설정
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-
-//        viewPager.adapter = CommunityAdapter(items = List(HotItem))
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> tab.text = "전체"
-                1 -> tab.text = "UCLA"
-                2 -> tab.text = "서울여대"
-                3 -> tab.text = "꿀팁"
-                4 -> tab.text = "후기"
+        // Bottom Navigation setup
+        binding.mainBnv.setOnItemSelectedListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.travelFragment -> {
+                    replaceFragment(TravelFragment())
+                    true
+                }
+                R.id.communityActivity -> {
+                    startActivity(Intent(this, CommunityActivity::class.java))
+                    true
+                }
+                R.id.recordFragment -> {
+                    replaceFragment(RecordFragment())
+                    true
+                }
+                R.id.mypageActivity -> {
+                    startActivity(Intent(this, MyPageActivity::class.java))
+                    true
+                }
+                else -> false
             }
-        }.attach()
+        }
+
+        setupRecyclerView() // Ensure RecyclerView setup is done
+    }
+
+    private fun showWritePostFragment() {
+        // Hide other parts of the UI
+        hideMainLayout()
+
+        val fragment = WritePostFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentPostSectionContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentPostSectionContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun hideMainLayout() {
+        binding.fragmentHotSectionContainer.visibility = View.GONE
+        binding.fragmentPostSectionContainer.visibility = View.GONE
+        binding.mainBnv.visibility = View.GONE
+        binding.toolbar.visibility = View.GONE
+        // Assuming 'fragmentContainer' should be replaced with 'fragmentPostSectionContainer'
+        binding.fragmentPostSectionContainer.visibility = View.VISIBLE
+    }
+
+    private fun showMainLayout() {
+        binding.fragmentHotSectionContainer.visibility = View.VISIBLE
+        binding.fragmentPostSectionContainer.visibility = View.VISIBLE
+        binding.mainBnv.visibility = View.VISIBLE
+        binding.toolbar.visibility = View.VISIBLE
+        // Assuming 'fragmentContainer' should be replaced with 'fragmentPostSectionContainer'
+        binding.fragmentPostSectionContainer.visibility = View.GONE
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            super.onBackPressed()
+            showMainLayout()  // Return to main layout when back is pressed
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    // ViewPager2에 어댑터 설정
+//        val adapter = MyPagerAdapter(this)
+//        viewPager.adapter = adapter
+
+//        // TabLayout과 ViewPager2 연결
+//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//            when (position) {
+//                0 -> tab.text = "전체"
+//                1 -> tab.text = "UCLA"
+//                2 -> tab.text = "서울여대"
+//                3 -> tab.text = "꿀팁"
+//                4 -> tab.text = "후기"
+//            }
+//        }.attach()
+
+
+    private fun setupRecyclerView() {
+        val items = listOf(
+            HotItem("UCLA 근처 맛집 주천!!", 120, R.drawable.eye_viewer),
+            HotItem("UCLA 근처 맛집 주천!!", 120, R.drawable.eye_viewer),
+            HotItem("UCLA 근처 맛집 주천!!", 120, R.drawable.eye_viewer),
+            HotItem("UCLA 근처 맛집 주천!!", 120, R.drawable.eye_viewer),
+            HotItem("UCLA 근처 맛집 주천!!", 120, R.drawable.eye_viewer)
+        )
+
+        val hotAdapter = HotAdapter(items)
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+//        binding.recyclerView.adapter = hotAdapter
+    }
+
+    fun hideBottomNavigation() {
+        binding.mainBnv.visibility = View.GONE
     }
 }

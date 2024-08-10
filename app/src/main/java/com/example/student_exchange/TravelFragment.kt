@@ -85,4 +85,8 @@ class TravelFragment : Fragment() {
         calendar.set(selectedYear, selectedMonth-1, 1)
         calendarView.date = calendar.timeInMillis
     }
+
+    fun updateSchedules(scheduleList: Any) {
+
+    }
 }

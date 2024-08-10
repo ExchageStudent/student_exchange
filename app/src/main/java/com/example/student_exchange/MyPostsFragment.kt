@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView // Import ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.student_exchange.databinding.FragmentMyPostsBinding // View Binding import
+import com.example.student_exchange.databinding.FragmentMyPostsBinding
 import com.example.student_exchange.model.MyPostsItem
 
 class MyPostsFragment : Fragment() {
@@ -55,6 +56,14 @@ class MyPostsFragment : Fragment() {
         // RecyclerView 설정
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewPosts.adapter = MyPostsAdapter(posts)
+
+        // 'backArrow'라는 ImageView를 찾아 초기화합니다.
+        val backArrow: ImageView = view.findViewById(R.id.backArrow)
+
+        // 'backArrow' 클릭 리스너 설정
+        backArrow.setOnClickListener {
+            parentFragmentManager.beginTransaction().remove(this).commit()
+        }
     }
 
     override fun onDestroyView() {

@@ -156,6 +156,7 @@
             android:layout_height="wrap_content"
             android:text="1,000원"
             android:textSize="14sp"
+            android:fontFamily="@font/pretendardsemibold"
             android:layout_marginStart="8dp"
             android:textColor="@color/main0" />
     </LinearLayout>
