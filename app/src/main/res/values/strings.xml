@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">exchange</string>
+    <string-array name="month_array">
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
+    </string-array>
 
     <string-array name="routine_options">
         <item>없음</item>
@@ -12,5 +26,8 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="preview">미리보기</string>
+    <string name="save">저장하기</string>
 
 </resources>

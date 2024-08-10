@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="MySpinnerDatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 상단 바 숨기기 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 상단 색 변경 -->
+        <item name="colorAccent">@color/main</item>
+        <!-- dialog의 배경 변경 -->
+        <item name="background">@color/gray3</item>
+        <!-- 선택한 날짜를 표시할 색상 -->
+        <item name="colorControlActivated">@color/main</item>
+        <item name="colorControlHighlight">@color/main</item>
+    </style>
+
+    <style name="SavingDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/pretendardbold</item> <!-- 사용자 정의 폰트 -->

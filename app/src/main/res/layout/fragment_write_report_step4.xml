@@ -1,0 +1,460 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/back_arrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/navigate_before" />
+
+                <TextView
+                    android:id="@+id/write_report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_toEndOf="@id/back_arrow"
+                    android:layout_marginStart="20dp"
+                    android:text="보고서 작성"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/saveButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/report_save"
+                    android:contentDescription="@string/save" />
+
+                <ImageView
+                    android:id="@+id/previewButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toStartOf="@id/saveButton"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/report_preview"
+                    android:contentDescription="@string/preview"
+                    android:layout_marginEnd="20dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- Step 1 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_inactive"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="1"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <!-- Step 2 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_inactive"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="2"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <!-- Step 3 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_inactive"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="3"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <!-- Step 4 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_active"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <!-- Step 5 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_inactive"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="5"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <!-- Step 6 -->
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/progress_inactive"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="6"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="참가 후 얻은 것을 입력해 주세요"
+                android:textSize="16dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp" />
+
+            <EditText
+                android:id="@+id/gain_activity_name"
+                android:layout_width="312dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="12dp"
+                android:hint="기타 활동명"
+                android:paddingStart="24dp"
+                android:background="@drawable/oval_background_8_gray2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="참가 후 얻은 것"
+                android:layout_marginStart="36dp"
+                android:textSize="16dp"
+                android:textColor="@color/font"
+                android:layout_marginTop="36dp"/>
+
+            <LinearLayout
+                android:id="@+id/gain_activity_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_1"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="대학 생활 중 가장 보람찬 수업"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_2"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="발표와 야외 수업 활동이 많아 만족도가 큼"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_3"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="시험 부담이 적어 만족도가 큼"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_4"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="영어 실력을 향상하기 위한 수업"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_5"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="과제 많았음"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:id="@+id/check_6"
+                        android:background="@drawable/circle_white"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        android:padding="5dp"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:id="@+id/check_tv6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="그 과정에서 많은 것을 배울 수 있었음"
+                        android:textColor="@color/gray"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_etc_activity"
+                android:layout_width="340dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="36dp"
+                android:background="@drawable/oval_background_8"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_add"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="직접 추가하기"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/gray"
+                    android:textSize="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="사진 첨부하기 \t\t"
+                        android:textSize="16dp"
+                        android:textColor="@color/gray"
+                        android:layout_marginStart="36dp" />
+
+                    <TextView
+                        android:id="@+id/photo_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:text="0/4"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/photo_preview_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="12dp">
+
+                    <LinearLayout
+                        android:id="@+id/add_report_photo"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/oval_background_8"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_camera" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="사진 첨부"
+                            android:textColor="@color/gray"
+                            android:textSize="14dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+                    <!-- 추가된 사진 미리보기가 여기에 동적으로 추가됩니다 -->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="30dp">
+
+                    <android.widget.Button
+                        android:id="@+id/previous_btn"
+                        android:layout_width="150dp"
+                        android:layout_height="52dp"
+                        android:text="이전"
+                        android:textColor="@color/gray"
+                        android:background="@drawable/report_button_previous"/>
+
+                    <android.widget.Button
+                        android:id="@+id/next_btn"
+                        android:layout_width="150dp"
+                        android:layout_height="52dp"
+                        android:text="다음"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

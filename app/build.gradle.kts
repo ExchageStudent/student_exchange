@@ -96,4 +96,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // 달력
+    implementation ("com.google.android.material:material:1.6.0")
+    // 다이얼로그 맨 아래에 위치
+    implementation ("com.google.android.material:material:1.4.0")
 }

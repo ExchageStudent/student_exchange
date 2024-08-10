@@ -25,4 +25,8 @@
     <color name="gray3">#F1F1F1</color>
     <color name="titleblack">#282828</color>
 
+    <color name="routine_default_color">#1D1B204D</color>
+    <color name="tag_default_color">#1D1B20</color>
+    <color name="skyblue">#0085FF1A</color>
+    <color name="divider">#E7E7E7</color>
 </resources>

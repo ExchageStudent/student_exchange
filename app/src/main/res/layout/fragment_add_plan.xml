@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="59dp">
+    android:paddingTop="30dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +27,8 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="250dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="230dp"
             android:gravity="center"
             android:text="일정 추가"
             android:textColor="#282828"
@@ -43,7 +44,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/check"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +108,6 @@
 
             <!-- All Day Switch -->
             <LinearLayout
-                android:id="@+id/all_day_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -120,11 +120,15 @@
                     android:textColor="#565656"
                     android:textSize="16sp" />
 
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/all_day_switch"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
+                    android:track="@drawable/switch_track_selector"
+                    android:thumb="@drawable/switch_thumb"
+                    android:layout_weight="1"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
             </LinearLayout>
 
             <!-- Divider -->
@@ -215,7 +219,7 @@
                     android:textColor="#565656" />
             </LinearLayout>
         </LinearLayout>
-        
+
         <LinearLayout
             android:id="@+id/routine_container"
             android:layout_width="312dp"
@@ -238,12 +242,12 @@
 
             <Spinner
                 android:id="@+id/routine_spinner"
-                android:layout_width="68dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="26dp"
                 android:layout_weight="1"
-                android:entries="@array/routine_options"
                 android:gravity="end"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:background="@drawable/routine_spinner_background"/>
         </LinearLayout>
 
         <LinearLayout
@@ -272,7 +276,7 @@
                 android:orientation="horizontal"
                 android:layout_gravity="start">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_travel"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
@@ -281,7 +285,7 @@
                     android:textColor="#1D1B20"
                     android:layout_marginEnd="8dp"/>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_birthday"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
@@ -290,7 +294,7 @@
                     android:textColor="#1D1B20"
                     android:layout_marginEnd="8dp"/>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_party"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
@@ -299,7 +303,7 @@
                     android:textColor="#1D1B20"
                     android:layout_marginEnd="8dp"/>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_exam"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
@@ -316,7 +320,7 @@
                 android:layout_gravity="start"
                 android:layout_marginTop="16dp">
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_diet"
                     android:layout_width="69dp"
                     android:layout_height="30dp"
@@ -325,12 +329,12 @@
                     android:textColor="#1D1B20"
                     android:layout_marginEnd="8dp"/>
 
-                <Button
+                <android.widget.Button
                     android:id="@+id/tag_study"
-                    android:layout_width="45dp"
+                    android:layout_width="55dp"
                     android:layout_height="30dp"
                     android:background="@drawable/oval_background_20"
-                    android:text="공부"
+                    android:text="스터디"
                     android:textColor="#1D1B20"
                     android:layout_marginEnd="8dp"
                     android:elevation="0dp"/>
