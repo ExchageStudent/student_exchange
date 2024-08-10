@@ -42,6 +42,7 @@
                 />
 
             <RelativeLayout
+                android:id="@+id/tvGrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvNickname"
@@ -93,6 +94,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/tvMoney"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -144,6 +146,7 @@
 
         <!-- 내가 작성한 글 섹션 -->
         <RelativeLayout
+            android:id="@+id/mypostsSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp">
@@ -179,6 +182,7 @@
 
         <!-- 스크랩한 글 섹션 -->
         <RelativeLayout
+            android:id="@+id/tvScrap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

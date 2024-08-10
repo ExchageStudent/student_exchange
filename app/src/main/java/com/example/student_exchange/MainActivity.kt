@@ -49,12 +49,12 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.mypageFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, MypageFragment())
-                        .commitAllowingStateLoss()
-                    return@setOnItemSelectedListener true
-                }
+//                R.id.mypageActivity -> {
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.main_frm, MyPageActivity())
+//                        .commitAllowingStateLoss()
+//                    return@setOnItemSelectedListener true
+//                }
             }
             false
         }

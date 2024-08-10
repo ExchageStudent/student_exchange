@@ -62,55 +62,66 @@
             android:textColor="#1E1E1E"
             android:fontFamily="@font/pretendardbold"/>
 
-        <TextView
-            android:id="@+id/tvSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="파리 6박 7일"
-            android:textSize="14sp"
-            android:textColor="#9E9E9E"/>
-
-        <!-- 뷰 카운트, 좋아요 아이콘 -->
+        <!-- 메인 레이아웃 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:gravity="center_vertical"> <!-- 모든 요소를 수평으로 정렬 -->
 
-            <ImageView
-                android:id="@+id/viewIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/eye_viewer"
-                android:layout_marginEnd="4dp"
-                android:layout_gravity="center_vertical"/>
-
+            <!-- 왼쪽: 텍스트 -->
             <TextView
-                android:id="@+id/tvViewCount"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSubtitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="120"
+                android:layout_weight="1"
+                android:text="파리 6박 7일"
                 android:textSize="14sp"
-                android:textColor="#9E9E9E"/>
+                android:textColor="#9E9E9E"
+                android:paddingLeft="8dp"/>
 
-            <ImageView
-                android:id="@+id/scrapIcon"
+            <!-- 오른쪽: 뷰 및 스크랩 아이콘 및 카운트 -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/post_scrap"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="4dp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"> <!-- 아이콘과 텍스트를 중앙 정렬 -->
 
-            <TextView
-                android:id="@+id/tvScrapCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="120"
-                android:textSize="14sp"
-                android:textColor="#9E9E9E"/>
+                <ImageView
+                    android:id="@+id/viewIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/eye_viewer"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvViewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="120"
+                    android:textSize="14sp"
+                    android:textColor="#9E9E9E"/>
+
+                <ImageView
+                    android:id="@+id/scrapIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/post_scrap"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvScrapCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="120"
+                    android:textSize="14sp"
+                    android:textColor="#9E9E9E"/>
+            </LinearLayout>
         </LinearLayout>
+
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

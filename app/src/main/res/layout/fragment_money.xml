@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="교환 머니"
+            android:fontFamily="@font/pretendardsemibold"
+            android:textColor="@color/titleblack"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>

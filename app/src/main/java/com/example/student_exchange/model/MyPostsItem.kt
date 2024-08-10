@@ -1,9 +1,9 @@
 package com.example.student_exchange.model
 
 data class MyPostsItem(
-    private String title;
-    private String subtitle;
-    private List<String> imageUrls;
-    private int viewCount;
-    private int likeCount;
+    val title: String,
+    val subtitle: String,
+    val imageUrls: List<String>,
+    val viewCount: Int,
+    val scrapCount: Int
 )
