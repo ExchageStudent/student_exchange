@@ -1,5 +1,6 @@
 package com.example.student_exchange
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Text
@@ -35,10 +36,9 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
 
-                R.id.communityFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, CommunityFragment())
-                        .commitAllowingStateLoss()
+                R.id.communityActivity -> {
+                    val intent = Intent(this, CommunityActivity::class.java)
+                    startActivity(intent)
                     return@setOnItemSelectedListener true
                 }
 
@@ -48,13 +48,11 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
-
-//                R.id.mypageActivity -> {
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.main_frm, MyPageActivity())
-//                        .commitAllowingStateLoss()
-//                    return@setOnItemSelectedListener true
-//                }
+                R.id.mypageActivity -> {
+                    val intent = Intent(this, MyPageActivity::class.java)
+                    startActivity(intent)
+                    return@setOnItemSelectedListener true
+                }
             }
             false
         }
