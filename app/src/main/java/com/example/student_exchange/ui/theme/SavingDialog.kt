@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.example.exchange.databinding.DialogSaveReportBinding
+import com.example.student_exchange.databinding.DialogSaveReportBinding
 
 class SavingDialog {
 

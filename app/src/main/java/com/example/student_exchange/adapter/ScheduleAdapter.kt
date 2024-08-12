@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange
 
 import android.view.LayoutInflater
 import android.view.View

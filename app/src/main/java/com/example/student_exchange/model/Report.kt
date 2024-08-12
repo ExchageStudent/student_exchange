@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange.model
 
 import android.net.Uri
 import android.os.Parcelable

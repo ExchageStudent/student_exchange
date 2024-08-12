@@ -27,7 +27,7 @@
             android:layout_marginStart="5dp"
             android:text="주제 선택"
             android:textSize="18sp"
-            android:fontfamily="@font/pretendardbold"
+            android:fontFamily="@font/pretendardbold"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/ivcancle"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,11 +60,12 @@
             android:padding="8dp" />
 
         <TextView
-            android:id="@+id/tvK-univ"
+            android:id="@+id/tvK_univ"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="중앙대"
-            android:gravity="center"            android:textColor="#1E1E1E"
+            android:gravity="center"
+            android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
     </LinearLayout>

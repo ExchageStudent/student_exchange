@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -73,7 +75,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.legacy.support.v4)
@@ -81,22 +82,6 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 //    implementation(libs.androidx.fragment.ktx)
 //    implementation(libs.androidx.fragment)
-    implementation(libs.material)
-    implementation ("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.0")
-    implementation ("com.google.android.material:material:1.6.0")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
     implementation("com.github.bumptech.glide:glide:4.12.0")
 //    kapt("com.android.databinding:compiler:8.3.1") // kapt dependency
     testImplementation(libs.junit)

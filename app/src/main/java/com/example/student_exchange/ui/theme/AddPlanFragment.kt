@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -20,7 +20,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.FragmentAddPlanBinding
+import com.example.student_exchange.databinding.FragmentAddPlanBinding
+import com.example.student_exchange.model.Schedule
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AddPlanFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange
 
 import android.app.Activity
 import android.content.Intent
@@ -26,8 +26,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.FragmentWriteReportStep2Binding
-import com.example.exchange.databinding.FragmentWriteReportStep3Binding
+import com.example.student_exchange.databinding.FragmentWriteReportStep3Binding
+import com.example.student_exchange.model.Report
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 

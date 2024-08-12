@@ -1,9 +1,5 @@
-package com.example.exchange
+package com.example.student_exchange
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -26,7 +22,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.FragmentWriteReportStep5Binding
+import com.example.student_exchange.databinding.FragmentWriteReportStep5Binding
+import com.example.student_exchange.model.Report
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class WriteReportStep5Fragment : Fragment() {

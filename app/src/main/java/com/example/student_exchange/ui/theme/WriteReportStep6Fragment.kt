@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.student_exchange
 
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +11,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.exchange.databinding.FragmentWriteReportStep6Binding
+import com.example.student_exchange.databinding.FragmentWriteReportStep6Binding
+import com.example.student_exchange.model.Report
 
 class WriteReportStep6Fragment : Fragment() {
     private lateinit var binding: FragmentWriteReportStep6Binding

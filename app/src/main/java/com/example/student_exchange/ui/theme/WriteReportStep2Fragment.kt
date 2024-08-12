@@ -1,15 +1,11 @@
-package com.example.exchange
+package com.example.student_exchange
 
-import android.animation.ValueAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -28,11 +24,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.exchange.databinding.DialogSaveReportBinding
-import com.example.exchange.databinding.FragmentWriteReportStep2Binding
+import com.example.exchange_student.PreviewReportFragment
+import com.example.student_exchange.databinding.FragmentWriteReportStep2Binding
+import com.example.student_exchange.model.Report
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class WriteReportStep2Fragment : Fragment() {

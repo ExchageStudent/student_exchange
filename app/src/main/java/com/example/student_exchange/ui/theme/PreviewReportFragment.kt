@@ -1,4 +1,4 @@
-package com.example.exchange
+package com.example.exchange_student
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.exchange.databinding.FragmentPreviewReportBinding
+import com.example.student_exchange.MainActivity
+import com.example.student_exchange.databinding.FragmentPreviewReportBinding
 
 class PreviewReportFragment : Fragment() {
     private lateinit var binding: FragmentPreviewReportBinding

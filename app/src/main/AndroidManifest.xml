@@ -13,31 +13,19 @@
         android:theme="@style/Theme.Exchange"
         tools:targetApi="31">
         <activity
-            android:name=".MyPostsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MyPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WritePostActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CommunityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".MyPostsFragment"
             android:exported="false" />
         <activity
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity
+            android:name=".CommunityActivity"
+            android:exported="false" />
+        <activity
             android:name=".WritePostFragment"
             android:exported="false" />
         <activity
-            android:name=".CommunityActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>
