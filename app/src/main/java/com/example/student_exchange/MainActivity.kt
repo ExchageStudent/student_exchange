@@ -5,17 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_exchange.databinding.ActivityMainBinding
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.student_exchange.HomeFragment
-import com.example.student_exchange.RecordFragment
 import com.example.student_exchange.model.Report
 import com.example.student_exchange.model.Schedule
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var travelFragment: TravelFragment
+    lateinit var travelFragment: RecordFragment
     private val scheduleList = mutableListOf<Schedule>()
     private val report = Report()
 
@@ -25,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        travelFragment = TravelFragment()
+        travelFragment = RecordFragment()
 
         initBottomNavigation()
 
@@ -53,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.travelFragment -> {
                     supportFragmentManager.beginTransaction()
+                        // 설정해둔 프래그먼트 이름으로 main_frm 이후로 변경하기
                         .replace(R.id.main_frm, travelFragment)
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
