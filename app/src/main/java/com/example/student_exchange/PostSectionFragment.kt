@@ -27,7 +27,7 @@ class PostSectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val postItems = listOf(
-            PostItem("UCLA 근처 맛집 추천해요", "한 템포 쉬고 싶을 때 찾는 곳 헬싱키로 가벼워 진짜...", "jlunj123", "2일전", 120, 120),
+            PostItem("UCLA 근처 맛집 추천해요", "한 템포 쉬고 싶을 때 찾는 곳 헬싱키로 가벼워 진짜...", "jlunj123", "2일전", 120, 120, true, true, "ULCA"),
             // 더 많은 항목 추가
         )
 

@@ -33,23 +33,25 @@ class MyPostsFragment : Fragment() {
         val posts = listOf(
             MyPostsItem(
                 title = "7일 동안 파리 정복하기✨",
-                subtitle = "파리 6박 7일",
+                detail = "파리 6박 7일",
                 imageUrls = listOf(
                     "https://example.com/image1.jpg",
                     "https://example.com/image2.jpg",
                     "https://example.com/image3.jpg"
                 ),
                 viewCount = 120,
-                scrapCount = 120
+                scrapCount = 120,
+                tag = "UCLA"
             ),
             MyPostsItem(
                 title = "헬싱키, 한 템포 쉬고 싶을 때 찾는 곳",
-                subtitle = "헬싱키 여행 후기",
+                detail = "헬싱키 여행 후기",
                 imageUrls = listOf(
                     "https://example.com/image1.jpg"
                 ),
                 viewCount = 95,
-                scrapCount = 45
+                scrapCount = 45,
+                tag = "UCLA"
             )
         )
 

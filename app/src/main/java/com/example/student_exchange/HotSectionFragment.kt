@@ -27,11 +27,11 @@ class HotSectionFragment : Fragment() {
 
         val hotItems = listOf(
             HotItem("UCLA 근처 맛집 추천!!", 120),
-            // 더 많은 항목을 추가할 수 있습니다.
+            // 다른 항목 추가
         )
 
         val hotAdapter = HotAdapter(hotItems)
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.recyclerView.adapter = hotAdapter
+        binding.hotItem.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.hotItem.adapter = hotAdapter
     }
 }

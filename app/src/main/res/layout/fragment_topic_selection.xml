@@ -78,7 +78,7 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:id="@+id/tvGomTip"
+            android:id="@+id/tvTip"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="꿀팁"

@@ -63,8 +63,10 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
-                R.id.communityActivity -> {
-                    startActivity(Intent(this, CommunityActivity::class.java))
+                R.id.communityFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, CommunityFragment())
+                        .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
                 R.id.mypageActivity -> {
@@ -77,6 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideBottomNavigation() {
-        binding.mainBnv.visibility = View.GONE
+        binding.mainBnv.visibility = View.VISIBLE
     }
 }

@@ -25,7 +25,7 @@ class ScrapAdapter(private val postList: List<MyPostsItem>) : RecyclerView.Adapt
         fun bind(myPost: MyPostsItem) {
             // Title and subtitle
             tvTitle.text = myPost.title
-            tvSubtitle.text = myPost.subtitle
+            tvSubtitle.text = myPost.detail
 
             // Image handling
             val imageUrls = myPost.imageUrls
