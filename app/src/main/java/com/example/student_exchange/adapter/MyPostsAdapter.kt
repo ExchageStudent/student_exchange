@@ -21,7 +21,7 @@ class MyPostsAdapter(private val postList: List<MyPostsItem>) : RecyclerView.Ada
 
         // Title and subtitle
         holder.tvTitle.text = myPost.title
-        holder.tvSubtitle.text = myPost.subtitle
+        holder.tvSubtitle.text = myPost.detail
 
         // Image handling
         val imageUrls = myPost.imageUrls

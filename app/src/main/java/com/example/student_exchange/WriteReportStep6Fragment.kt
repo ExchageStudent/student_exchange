@@ -11,8 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.exchange.Report
-import com.example.exchange.SavingDialog
 import com.example.student_exchange.databinding.FragmentWriteReportStep6Binding
 
 class WriteReportStep6Fragment : Fragment() {

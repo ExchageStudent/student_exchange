@@ -1,10 +1,8 @@
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-kapt") // Apply the kapt plugin
-
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -77,16 +75,13 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.0")
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
+    implementation(libs.androidx.constraintlayout)
+//    implementation(libs.androidx.fragment.ktx)
+//    implementation(libs.androidx.fragment)
     implementation("com.github.bumptech.glide:glide:4.12.0")
 //    kapt("com.android.databinding:compiler:8.3.1") // kapt dependency
     testImplementation(libs.junit)
@@ -101,4 +96,9 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.0")
     // 다이얼로그 맨 아래에 위치
     implementation ("com.google.android.material:material:1.4.0")
+
+    // 서버 연동
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 }

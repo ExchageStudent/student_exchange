@@ -5,11 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WritePostFragment">
+    tools:context=".WritePostFragment"
+    android:layout_marginTop="12dp">
 
 
     <ImageView
-        android:id="@+id/ivBack"
+        android:id="@+id/back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -29,8 +30,8 @@
         android:fontFamily="@font/pretendardbold"
         android:textColor="@color/titleblack"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivBack"
-        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintStart_toEndOf="@id/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow"
         app:layout_constraintHorizontal_bias="0.5" />
 
     <ImageView
@@ -42,7 +43,7 @@
         android:src="@drawable/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/ivBack" />
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow" />
 
     <ImageView
         android:id="@+id/ivFinish"
@@ -53,14 +54,14 @@
         android:src="@drawable/button_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/ivBack" />
+        app:layout_constraintBottom_toBottomOf="@id/back_arrow" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
         android:background="#E3E3E4"
-        app:layout_constraintTop_toBottomOf="@id/ivBack" />
+        app:layout_constraintTop_toBottomOf="@id/back_arrow" />
 
     <TextView
         android:id="@+id/tvSelectTopic"

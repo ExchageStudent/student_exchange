@@ -24,7 +24,7 @@ class MyPageActivity : AppCompatActivity() {
             MyPageMineItem(R.drawable.parisimage, "7일 동안 파리\n정복하기"),
             MyPageMineItem(R.drawable.sample_image, "헬싱키,한 템포\n쉬고 싶을 때 찾는 곳"),
 
-        )
+            )
 
         val recyclerViewMyPosts = findViewById<RecyclerView>(R.id.rvMyPosts)
         recyclerViewMyPosts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

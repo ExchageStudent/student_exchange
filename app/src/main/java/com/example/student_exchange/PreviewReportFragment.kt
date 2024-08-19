@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.student_exchange.MainActivity
 import com.example.student_exchange.databinding.FragmentPreviewReportBinding
 
 class PreviewReportFragment : Fragment() {
@@ -37,6 +38,5 @@ class PreviewReportFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).hideBottomNavigation()
-    }
+        (this as? MainActivity)?.hideBottomNavigation()    }
 }

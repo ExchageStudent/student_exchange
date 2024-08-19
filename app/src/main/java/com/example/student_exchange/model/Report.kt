@@ -1,8 +1,8 @@
-package com.example.student_exchange
+package com.example.student_exchange.model
 
 import android.net.Uri
 import android.os.Parcelable
-//import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Report(
@@ -15,5 +15,4 @@ data class Report(
     var gainReview: String = "",
     var merits: List<String> = emptyList(),
     var dismerits: List<String> = emptyList()
-//) : Parcelable
 ) : Parcelable

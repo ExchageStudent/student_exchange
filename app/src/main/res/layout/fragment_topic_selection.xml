@@ -28,7 +28,6 @@
             android:text="주제 선택"
             android:textSize="18sp"
             android:fontFamily="@font/pretendardbold"
-            android:textColor="@color/titleblack"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/ivcancle"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,19 +55,16 @@
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="UCLA"
-            android:gravity="center"
-            android:textColor="#1E1E1E"
-            android:fontFamily="@font/pretendardmedium"
+            android:gravity="center"            android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
 
         <TextView
-            android:id="@+id/tvKuniv"
+            android:id="@+id/tvK_univ"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="중앙대"
             android:gravity="center"
-            android:fontFamily="@font/pretendardmedium"
             android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
@@ -82,13 +78,11 @@
         android:layout_marginTop="8dp">
 
         <TextView
-            android:id="@+id/tvGomTip"
+            android:id="@+id/tvTip"
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="꿀팁"
-            android:fontFamily="@font/pretendardmedium"
-            android:gravity="center"
-            android:textColor="#1E1E1E"
+            android:gravity="center"            android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
 
@@ -97,22 +91,25 @@
             android:layout_width="150dp"
             android:layout_height="55dp"
             android:text="후기"
-            android:fontFamily="@font/pretendardmedium"
-            android:gravity="center"
-            android:textColor="#1E1E1E"
+            android:gravity="center"            android:textColor="#1E1E1E"
             android:textSize="14sp"
             android:padding="8dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvQuestion"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="150dp"
         android:layout_height="55dp"
-        android:text="질문"
-        android:fontFamily="@font/pretendardmedium"
         android:gravity="center"
-        android:textColor="#1E1E1E"
-        android:textSize="14sp"
-        android:padding="8dp" />
+        android:layout_marginTop="8dp">
 
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="질문"
+            android:textColor="#1E1E1E"
+            android:textSize="14sp"
+            android:padding="8dp" />
+    </LinearLayout>
 </LinearLayout>

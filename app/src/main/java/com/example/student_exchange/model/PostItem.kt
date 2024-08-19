@@ -6,5 +6,8 @@ data class PostItem(
     val author: String,
     val date: String,
     val views: Int,
-    val scrap: Int
+    val scrap: Int,
+    var isSaved: Boolean = false,
+    var isFinished: Boolean = false,
+    var topic: String
 )
