@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="30dp"/>
+    <!-- 모서리 반경 설정 -->
+    <solid
+
+        android:color="@color/white"
+        />
+
+    <size
+        android:width="152.73dp"
+        android:height="56dp"/>
+</shape>

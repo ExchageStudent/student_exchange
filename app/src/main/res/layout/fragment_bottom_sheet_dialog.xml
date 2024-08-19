@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="국가 선택"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/pretendardbold"
+        android:textColor="@color/titleblack"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivBack"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/ivFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/button_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack" />
+
+
+
+    <!-- Search EditText -->
+    <EditText
+        android:id="@+id/etSearchCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_marginTop="50dp"
+        android:hint="어느 국가로 여행 가고싶나요?"
+        android:textSize="14sp"
+        android:background="@drawable/search_background"
+        android:fontFamily="@font/pretendardlight"
+        android:textColorHint="#565656"
+        android:textColor="@color/font"
+        android:drawableEnd="@drawable/ic_search"
+        android:padding="12dp"
+        android:gravity="start"
+        android:inputType="textMultiLine"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <!-- RecyclerView for Cities -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCityName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/etSearchCountry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+
+    <!-- ScrollView -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewCityName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true">
+
+        <!-- 하나의 LinearLayout으로 모든 자식을 감쌈 -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 서유럽 파트 -->
+            <LinearLayout
+                android:id="@+id/linearLayoutWest"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvWest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="서유럽"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendardsemibold"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="16dp" />
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/tvNed"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="네덜란드"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvGerman"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="독일"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvBel"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="벨기에"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvChe"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="스위스"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvEng"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="영국"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvAut"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="오스트리아"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvIre"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="아일랜드"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvLux"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="룩셈부루크"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvFrance"
+                    android:layout_width="150dp"
+                    android:layout_height="55dp"
+                    android:text="프랑스"
+                    android:gravity="center"
+                    android:fontFamily="@font/pretendardmedium"
+                    android:textColor="#1E1E1E"
+                    android:textSize="14sp"
+                    android:padding="8dp"
+                    android:layout_marginStart="40dp"/>
+            </LinearLayout>
+
+
+            <!-- 남유럽 파트 -->
+            <LinearLayout
+                android:id="@+id/linearLayoutSouthern"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvSouthern"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="남유럽"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendardsemibold"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="16dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/tvItaly"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="이탈리아"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvSpain"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="스페인"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvGreek"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="그리스"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvPortugal"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="포르투갈"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 동유럽 파트 -->
+            <LinearLayout
+                android:id="@+id/linearLayoutEast"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvEast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동유럽"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendardsemibold"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="16dp" />
+
+                <LinearLayout
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/tvPoland"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="폴란드"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvRussia"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="러시아"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvSlo"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="슬로바키아"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvCes"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="체코"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 북유럽 파트 -->
+            <LinearLayout
+                android:id="@+id/linearLayoutNorthern"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvNorth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="북유럽"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/pretendardsemibold"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="16dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/tvNorway"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="노르웨이"
+                        android:gravity="center"
+                        android:textColor="#1E1E1E"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvFinland"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="핀란드"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvSweden"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="스웨덴"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvDenmark"
+                        android:layout_width="150dp"
+                        android:layout_height="55dp"
+                        android:text="덴마크"
+                        android:gravity="center"
+                        android:fontFamily="@font/pretendardmedium"
+                        android:textColor="#1E1E1E"
+                        android:textSize="14sp"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

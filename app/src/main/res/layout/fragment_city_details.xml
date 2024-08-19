@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/btn_back"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="도시"
+                android:textSize="18sp"
+                android:fontFamily="@font/pretendardextrabold"
+                android:textColor="#282828"
+                android:layout_toEndOf="@+id/backArrow"
+                android:layout_marginStart="10dp"/>
+
+            <EditText
+                android:id="@+id/search_city"
+                android:layout_width="199dp"
+                android:layout_height="40dp"
+                android:hint="어느 도시에 가고싶나요?"
+                android:layout_toEndOf="@id/tvTitle"
+                android:layout_marginStart="80dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인기 도시"
+                android:textSize="18sp"
+                android:layout_marginTop="80dp" />
+
+
+    </RelativeLayout>
+    <!-- Image Carousel Here -->
+    <!-- Add your carousel or recycler view here -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPopular"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCityName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
