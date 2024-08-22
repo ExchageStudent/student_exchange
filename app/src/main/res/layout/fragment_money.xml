@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/btn_back"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교환 머니"
+            android:fontFamily="@font/pretendardsemibold"
+            android:textColor="@color/titleblack"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Points Section -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/money_background"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2,600P"
+            android:textSize="24sp"
+            android:fontFamily="@font/pretendardextrabold"
+            android:textColor="@color/main"/>
+    </LinearLayout>
+
+    <!-- Accumulated Points Section -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/get_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="적립 내역"
+            android:fontFamily="@font/pretendardbold"
+            android:textColor="@color/font"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:src="@drawable/information"
+            android:layout_marginStart="8dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="전체 조회수"
+            android:fontFamily="@font/pretendardmedium"
+            android:textColor="@color/font"
+            android:textSize="14sp"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6,980회"
+            android:fontFamily="@font/pretendardmedium"
+            android:textColor="@color/font"
+            android:textSize="14sp" />
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/uil_arrow"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1,600원"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendardsemibold"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/main0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="전체 챌린지"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendardmedium"
+            android:textColor="@color/font"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="102회"
+            android:fontFamily="@font/pretendardmedium"
+            android:textColor="@color/font"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/uil_arrow"
+            android:layout_marginStart="8dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1,000원"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendardsemibold"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/main0" />
+    </LinearLayout>
+
+    <!-- Points Usage Section -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="적립 사용 내역"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendardbold"
+            android:textColor="@color/font" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="보고서"
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendardmedium"
+                android:textColor="@color/font"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-3,000원"
+                android:textSize="14sp"
+                android:fontFamily="@font/pretendardsemibold"
+                android:textColor="@color/main0" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<resources >
+    <!-- Base application theme. -->
+
+    <!-- 캘린더 material date picker 사용하기 위해 parent 이후 변경해줌 -->
+    <style name="Base.Theme.Exchange" parent="Theme.MaterialComponents.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="colorPrimary">@color/main</item>
+        <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+        <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    </style>
+
+    <style name="Theme.Exchange" parent="Base.Theme.Exchange">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>
