@@ -1,9 +1,5 @@
 package com.example.student_exchange
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -30,7 +26,8 @@ import com.example.student_exchange.adapter.Base64Image
 import com.example.student_exchange.adapter.ReportStageDto
 import com.example.student_exchange.adapter.StageDto
 import com.example.student_exchange.adapter.StageResponseDto
-import com.example.student_exchange.databinding.FragmentWriteReportStep4Binding
+import com.example.student_exchange.databinding.FragmentWriteReportStep6Binding
+import com.example.student_exchange.databinding.FragmentWriteReportStep7Binding
 import com.example.student_exchange.model.Report
 import com.example.student_exchange.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -38,11 +35,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-class WriteReportStep4Fragment : Fragment() {
-    private lateinit var binding: FragmentWriteReportStep4Binding
-    private var selectedItemsText = mutableSetOf<String>()
+class WriteReportStep7Fragment : Fragment() {
+    private lateinit var binding: FragmentWriteReportStep7Binding
+    private var nextstepButton: Button? = null
+    private var selectedMerits = mutableSetOf<Int>()
+    private var selectedDismerits = mutableSetOf<Int>()
     private var itemIndex = 6 // 기존 항목 개수
+
     private val REQUEST_IMAGE_PICK = 1
     private val maxPhotos = 4
     private val photoUris = mutableListOf<Uri>()
@@ -55,34 +54,33 @@ class WriteReportStep4Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentWriteReportStep4Binding.inflate(inflater, container, false)
+        binding = FragmentWriteReportStep7Binding.inflate(inflater, container, false)
 
         // reportId 받아오기
         reportId = arguments?.getLong("reportId") ?: 0
         reportType = arguments?.getString("reportType") ?: "DAILY"
-        fetchReportStage(reportId, 3)
+
+        fetchReportStage(reportId, 6)
 
         val mainActivity = activity as MainActivity
         val report = mainActivity.getReport()
 
+
         setupInitialItemSelections()
 
-        // addCourseReview 버튼 클릭 시 다이얼로그를 표시하도록 설정
+        /*
         binding.addEtcActivity.setOnClickListener {
             showAddReviewDialog()
-        }
+        } */
 
-        binding.addReportPhoto.setOnClickListener {
-            goGallery()
-        }
-
-        updatePhotoCount()
         updateNextButtonState()
 
         binding.nextBtn.setOnClickListener {
-            report.gainReview = selectedItemsText.joinToString("\n")
-            Log.d("WriteReportStep4", "Report Data: $report")
+            //report.merits = selectedMerits.map { index -> getMeritText(index) }
+            //report.dismerits = selectedDismerits.map { index -> getDismeritText(index) }
+
             sendSelectedOptionsToServer()
+
             goToNextStep(report)
         }
 
@@ -120,26 +118,26 @@ class WriteReportStep4Fragment : Fragment() {
                 if (response.isSuccessful) {
                     val stageData = response.body()
                     if (stageData != null) {
-                        Log.d("WriteReportStep4", "Report stage data: $stageData")
+                        Log.d("WriteReportStep7", "Report stage data: $stageData")
                     } else {
-                        Log.e("WriteReportStep4", "Stage data is null")
+                        Log.e("WriteReportStep7", "Stage data is null")
                     }
                 } else {
-                    Log.e("WriteReportStep4", "Failed to fetch stage: ${response.errorBody()?.string()}")
+                    Log.e("WriteReportStep7", "Failed to fetch stage: ${response.errorBody()?.string()}")
                 }
             }
 
             override fun onFailure(call: Call<StageResponseDto>, t: Throwable) {
-                Log.e("WriteReportStep4", "API call failed: ${t.message}", t)
+                Log.e("WriteReportStep7", "API call failed: ${t.message}", t)
             }
         })
     }
 
     private fun sendSelectedOptionsToServer() {
-        Log.d("WriteReportStep4", "sendSelectedOptionsToServer called")
+        Log.d("WriteReportStep6", "sendSelectedOptionsToServer called")
 
         val reportId = reportId // 실제 reportId로 교체
-        val stageOrder = 3 // 현재 단계에 맞게 stageOrder를 설정
+        val stageOrder = 6 // 현재 단계에 맞게 stageOrder를 설정
         val base64Images = listOf<Base64Image>() // 필요한 경우 이미지 데이터를 여기에 추가
 
         // StageDto로 변경
@@ -150,7 +148,7 @@ class WriteReportStep4Fragment : Fragment() {
             base64Images = base64Images
         )
 
-        Log.d("WriteReportStep4", "Stage request data: $stageRequest")
+        Log.d("WriteReportStep7", "Stage request data: $stageRequest")
 
         RetrofitInstance.reportApi.updateReportStage(stageRequest).enqueue(object : Callback<StageResponseDto> {
             override fun onResponse(call: Call<StageResponseDto>, response: Response<StageResponseDto>) {
@@ -181,33 +179,31 @@ class WriteReportStep4Fragment : Fragment() {
     private fun setupInitialItemSelections() {
         when (reportType) {
             "DAILY" -> {
-                binding.headerTitle.text = "교환 프로그램"
-                setupItemSelection(binding.check1, binding.checkTv1, 1, "교환학생 프로그램인 ESN에서 매주 수요일마다 진행되었습니다.")
-                setupItemSelection(binding.check2, binding.checkTv2, 2, "다양한 교환학생을 만날 수 있었습니다.")
-                setupItemSelection(binding.check3, binding.checkTv3, 3, "학기 시작 전부터 학기가 시작한 후 2~3달 동안 새로운 버디가 지속적으로 나타날 수 있습니다.")
-                setupItemSelection(binding.check4, binding.checkTv4, 4, "상호언어교환 프로그램이 존재하며, 파견 대학 내에서 자체적으로 학생들의 수요를 받아 연결해 주었습니다.")
-                setupItemSelection(binding.check5, binding.checkTv5, 5, "서로의 문화를 교류하는 좋은 시간이었습니다.")
-                setupItemSelection(binding.check6, binding.checkTv6, 6, "국제교류처 담당자분께서 매우 친절하셨습니다.")
+                binding.headerTitle.text = "학습사항"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "대부분의 과목에서 괜찮은 성적을 받았습니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "출석과 과제, 시험에 꽤 많은 정성을 쏟지 않는다면 과목에 따라 의외로 패스하지 못하는 과목들도 많습니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "생각보다 사소하고 자잘한 것까지 암기해야 하는 경우도 있었습니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "먼저 열심히 하려는 의지를 보여주는 것이 중요합니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "과제나 팀프로젝트가 많은 과목도 있어서 친구들에게 물어가며, 해결해야 하는 경우도 있습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "교수님과 자유롭게 질문/소통이 가능하니 이를 활용하세요.")
             }
-
             "INTERIM" -> {
-                binding.headerTitle.text = "언어 습득"
-                setupItemSelection(binding.check1, binding.checkTv1, 1, "교환학생이 많이 없을수록, 교환학생에 대한 배려가 전혀 없는 과목도 많이 있습니다.")
-                setupItemSelection(binding.check2, binding.checkTv2, 2, "현지인들과 똑같이 수업을 듣는 데에 어려움이 있을 수 있습니다.")
-                setupItemSelection(binding.check3, binding.checkTv3, 3, "커뮤니케이션 과목 같은 경우에는 영어나 해당 국가의 언어로 독해, 말하기, 글쓰기가 가능하신 분들에게 추천 드립니다.")
-                setupItemSelection(binding.check4, binding.checkTv4, 4, "언어를 배우다 보면 어느 정도 규칙이 있어서 생활하고 그 규칙을 터득하다 보면 스스로 이해가 가능해집니다.")
-                setupItemSelection(binding.check5, binding.checkTv5, 5, "기본적인 회화는 어떤 방식으로든 익히고 오시는 걸 추천드립니다.")
-                setupItemSelection(binding.check6, binding.checkTv6, 6, "실제 사용하는 은어 같은 것들을 배우고 싶다면 해당 국가의 드라마를 보시는 걸 추천드립니다.")
+                binding.headerTitle.text = "교환학생 여가 활동"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "교통편을 알아볼 때는 omio 앱을 추천드립니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "항공권은 구글 항공권을 주로 이용합니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "자유롭게 날짜와 여행지를 조정할 수 있는 만큼 한국에서 쉽게 가기 힘든 여행지들을 추천드립니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "유럽 곳곳에 예쁜 소도시들이 많으니 열심히 검색하여 색다른 여행지를 가보시기를 추천합니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "정말 다양한 축제가 열리는데 가능하다면 다양하게 참여해 보는 것을 추천합니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "학생 신분으로 혜택 주는 곳들이 꽤나 많으니 확인해보면 좋을 거 같습니다.")
             }
-
             "FINAL" -> {
-                binding.headerTitle.text = "수업 및 학사 관련 사항 (수강과목 포함)"
-                setupItemSelection(binding.check1, binding.checkTv1, 1, "1학기에는 최대 5과목 수강이 가능합니다.")
-                setupItemSelection(binding.check2, binding.checkTv2, 2, "조금 더 자유로운 분위기에서 토론이나 질문을 할 수 있습니다.")
-                setupItemSelection(binding.check3, binding.checkTv3, 3, "과제가 많으나 배우는 것도 많이 있습니다.")
-                setupItemSelection(binding.check4, binding.checkTv4, 4, "내용은 쉬우나 시험이 조금 까다롭습니다.")
-                setupItemSelection(binding.check5, binding.checkTv5, 5, "PPT를 만들어 내기만 하면 성적을 굉장히 잘 주십니다. 아시아계 학생들이 많습니다.")
-                setupItemSelection(binding.check6, binding.checkTv6, 6, " 이론과 토론 수업으로 진행됩니다. 문화 관련 토론이 많아 서로의 문화를 배울 수 있고 흥미롭습니다.")
+                binding.headerTitle.text = "파견교 단점"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "전공수업이 많이 없고 도시에 있고 관광지도 많기 때문에 공부에 소홀해질 가능성이 다른 곳보다 큽니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "교내 행사가 적어 교환학생이란 느낌을 받은 적이 거의 없어 가끔 학교에 불만을 느끼기 쉬울 것 같습니다")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "업무 처리가 한국처럼 빠르지 않기에 어떠한 일이 생겼을 때 이를 해결하기 매우 어렵습니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "기숙사에서 식사를 제공해 주지 않기 때문에 항상 사 먹거나 만들어 먹어야 합니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "교내에서 진행하는 프로그램 내용은 좋으나 약간 허술한 점이 있어서 참여율이 매우 낮습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "시내와 학교의 거리가 꽤 멀어, 트램을 타고 이동해야 합니다.")
             }
         }
     }
@@ -228,7 +224,7 @@ class WriteReportStep4Fragment : Fragment() {
                 updateItemState(imageView, textView, true)
                 selectedOptions.add(index)
             }
-            updateNextButtonState() // 항목 선택 상태 변경 시 버튼 상태 업데이트
+            updateNextButtonState()
         }
     }
 
@@ -286,10 +282,10 @@ class WriteReportStep4Fragment : Fragment() {
         newItemLayout.addView(newTextView)
 
         // 기존 레이아웃에 새로 만든 항목 레이아웃 추가
-        binding.gainActivityContainer.addView(newItemLayout)
+        binding.meritsContainer.addView(newItemLayout)
 
         // 새 항목에 대해 클릭 리스너 설정
-        setupItemSelection(newCheckImage, newTextView, itemIndex, reviewText)
+        //setupItemSelection(newCheckImage, newTextView, itemIndex, isMerit = true)
     }
 
     // dp를 px로 변환하는 확장 함수
@@ -352,79 +348,31 @@ class WriteReportStep4Fragment : Fragment() {
         dialog.show()
     }
 
-    // 사진 첨부하기
-    // 갤러리로 이동하기
-    private fun goGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK)
-        galleryIntent.type = "image/*" // 선택한 파일의 종류를 지정 (이미지만 지정)
-        startActivityForResult(galleryIntent, REQUEST_IMAGE_PICK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
-            data?.data?.let { uri ->
-                val bitmap = getBitmapFromUri(uri)
-                val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
-                photoUris.add(uri)
-                addImageView(resizedBitmap)
-                updatePhotoCount()
-            }
-        }
-    }
-
-    private fun getBitmapFromUri(uri: Uri): Bitmap {
-        val inputStream = requireActivity().contentResolver.openInputStream(uri)
-        return BitmapFactory.decodeStream(inputStream)
-    }
-
-    private fun addImageView(bitmap: Bitmap) {
-        val imageView = ImageView(requireContext()).apply {
-            layoutParams = LinearLayout.LayoutParams(100.dpToPx(), 100.dpToPx())
-            setImageBitmap(bitmap)
-        }
-        binding.photoPreviewContainer.addView(imageView)
-    }
-
-    // 사진 개수 업데이트
-    private fun updatePhotoCount() {
-        val photoCountText = "${photoUris.size}/$maxPhotos"
-        binding.photoCount.text = photoCountText
-        if (photoUris.size == maxPhotos) {
-            binding.photoCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.main))
-            binding.addReportPhoto.isClickable = false
-        } else {
-            binding.photoCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray))
-            binding.addReportPhoto.isClickable = true
-        }
-    }
-
     private fun updateNextButtonState() {
         if (selectedOptions.isNotEmpty()) {
-            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_focus)
-            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.nextBtn.isEnabled = true
+            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_focus)
+            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            nextstepButton?.isEnabled = true
         } else {
-            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_previous)
-            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.nextBtn.isEnabled = false
+            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_previous)
+            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            nextstepButton?.isEnabled = false
         }
     }
 
     private fun goToNextStep(report: Report) {
-        Log.d("WriteReportStep4", "Passing Report to Step 5: $report")
-        val fifthStep = WriteReportStep5Fragment()
+        val seventhStep = WriteReportStep8Fragment()
         val bundle = Bundle()
         bundle.putParcelable("report", report) // Report 객체를 번들에 저장
-        fifthStep.arguments = bundle
+        seventhStep.arguments = bundle
 
         bundle.putLong("reportId", reportId ?: 0)
         bundle.putString("reportType", reportType ?: "DAILY")
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, fifthStep)
+            .replace(R.id.main_frm, seventhStep) // R.id.main_frm은 프래그먼트를 교체할 컨테이너 ID
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .addToBackStack(null)
+            .addToBackStack(null) // 뒤로 가기 버튼을 통해 현재 프래그먼트로 돌아올 수 있게 함
             .commit()
     }
 
@@ -434,4 +382,3 @@ class WriteReportStep4Fragment : Fragment() {
         (activity as MainActivity).hideBottomNavigation()
     }
 }
-

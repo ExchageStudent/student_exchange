@@ -58,107 +58,117 @@
                     android:layout_marginEnd="20dp" />
             </RelativeLayout>
 
-            <LinearLayout
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
                 android:gravity="center">
 
-                <!-- Step 1 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="1"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <!-- Step 2 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="2"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    <!-- Step 1 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="1"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
 
-                <!-- Step 3 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="3"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    <!-- Step 2 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="2"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
 
-                <!-- Step 4 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_active"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="4"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    <!-- Step 3 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="3"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
 
-                <!-- Step 5 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="5"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
+                    <!-- Step 4 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_active"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="4"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
-                <!-- Step 6 -->
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/progress_inactive"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="6"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <!-- Step 5 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="5"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+
+                    <!-- Step 6 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="6"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+
+                    <!-- Step 7 -->
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="7"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/progress_inactive"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="8"
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="참가 후 얻은 것을 입력해 주세요"
-                android:textSize="16dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="24dp" />
-
-            <EditText
-                android:id="@+id/gain_activity_name"
-                android:layout_width="312dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="12dp"
-                android:hint="기타 활동명"
-                android:paddingStart="24dp"
-                android:background="@drawable/oval_background_8_gray2" />
-
-            <TextView
+                android:id="@+id/header_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="참가 후 얻은 것"

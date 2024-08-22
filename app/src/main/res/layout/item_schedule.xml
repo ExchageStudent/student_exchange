@@ -4,8 +4,10 @@
     android:layout_height="56dp"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:layout_margin="20dp"
-    android:background="@drawable/oval_background_8_gray2" >
+    android:layout_margin="30dp"
+    android:layout_gravity="center"
+    android:background="@drawable/oval_background_8_gray2"
+    android:backgroundTint="#D5EAFF">
 
     <TextView
         android:id="@+id/schedule_name"

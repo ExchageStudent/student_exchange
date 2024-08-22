@@ -70,6 +70,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideBottomNavigation() {
-        binding.mainBnv.visibility = View.VISIBLE
+        binding.mainBnv.visibility = View.GONE
     }
 }

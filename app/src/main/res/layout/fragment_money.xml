@@ -45,7 +45,7 @@
             android:id="@+id/tvPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2,600P"
+            android:text="10,000P"
             android:textSize="24sp"
             android:fontFamily="@font/pretendardextrabold"
             android:textColor="@color/main"/>

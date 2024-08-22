@@ -169,6 +169,33 @@ class RealMainActivity : AppCompatActivity() {
 
     private fun initBottomNavigation() {
         // Initialize your Bottom Navigation here
+        binding.mainBnv.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.travelFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, RecordFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.communityFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, CommunityFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.recordFragment -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frm, RecordFragment())
+                        .commitAllowingStateLoss()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.mypageActivity -> {
+                    startActivity(Intent(this, MyPageActivity::class.java))
+                    return@setOnItemSelectedListener true
+                }
+                else -> false
+            }
+        }
     }
 
     fun hideBottomNavigation() {

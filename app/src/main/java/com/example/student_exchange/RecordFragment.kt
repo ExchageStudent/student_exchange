@@ -3,6 +3,7 @@ package com.example.student_exchange
 import androidx.fragment.app.Fragment
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,10 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.student_exchange.databinding.FragmentRecordBinding
 import com.example.student_exchange.model.Schedule
+import com.example.student_exchange.network.RetrofitInstance.scheduleApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecordFragment : Fragment() {
 
@@ -21,6 +26,7 @@ class RecordFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private lateinit var scheduleAdapter: ScheduleAdapter
     private val scheduleList = mutableListOf<Schedule>()
+    private var scheduleId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,15 +46,49 @@ class RecordFragment : Fragment() {
             adapter = scheduleAdapter
             layoutManager = LinearLayoutManager(context)
         }*/
+
+        arguments?.let {
+            scheduleId = it.getInt("SCHEDULE_ID", 0)
+        }
+        Log.d("RecordFragment", "Received scheduleId: $scheduleId")
+
         scheduleAdapter = ScheduleAdapter(mutableListOf())
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = scheduleAdapter
 
         // CalendarView 날짜 선택 리스너 설정
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            // 선택된 날짜 처리
-            val selectedDate = "$dayOfMonth/${month + 1}/$year"
-            Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
+            // 선택된 날짜 처리 (두 자리 숫자 형식으로 맞춤)
+            val formattedSelectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+
+            // 선택된 날짜를 기반으로 일정 API 호출
+            scheduleId?.let { id ->
+                scheduleApi.getSchedule(id).enqueue(object : Callback<Schedule> {
+                    override fun onResponse(call: Call<Schedule>, response: Response<Schedule>) {
+                        if (response.isSuccessful) {
+                            response.body()?.let { schedule ->
+                                // API 응답 데이터를 이용해 RecyclerView 업데이트
+                                val scheduleDate = schedule.startTime.substring(0, 10) // "YYYY-MM-DD" 부분만 추출
+                                if (scheduleDate == formattedSelectedDate) {
+                                    Log.d("RecordFragment", "Schedule matches the selected date: $formattedSelectedDate")
+                                    updateSchedules(listOf(schedule))
+                                } else {
+                                    Log.d("RecordFragment", "No schedules found for the selected date: $formattedSelectedDate")
+                                    updateSchedules(emptyList())
+                                }
+                            }
+                        } else {
+                            Log.e("RecordFragment", "Failed to load schedule: ${response.errorBody()?.string()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Schedule>, t: Throwable) {
+                        Log.e("RecordFragment", "Error loading schedule", t)
+                    }
+                })
+            } ?: run {
+                Log.e("RecordFragment", "scheduleId is null")
+            }
         }
 
         // 스피너 초기화
@@ -117,6 +157,7 @@ class RecordFragment : Fragment() {
 
     fun updateSchedules(schedules: List<Schedule>) {
         scheduleAdapter.updateSchedules(schedules)
+        scheduleAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

@@ -24,7 +24,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.student_exchange.databinding.FragmentWriteReportStep5Binding
 import com.example.student_exchange.model.Report
+import com.example.student_exchange.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class WriteReportStep5Fragment : Fragment() {
     private lateinit var binding: FragmentWriteReportStep5Binding
@@ -37,11 +41,21 @@ class WriteReportStep5Fragment : Fragment() {
     private val maxPhotos = 4
     private val photoUris = mutableListOf<Uri>()
 
+    private var reportId: Long = 0
+    private lateinit var reportType: String
+    private var selectedOptions = mutableSetOf<Int>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWriteReportStep5Binding.inflate(inflater, container, false)
+
+        // reportId 받아오기
+        reportId = arguments?.getLong("reportId") ?: 0
+        reportType = arguments?.getString("reportType") ?: "DAILY"
+
+        fetchReportStage(reportId, 4)
 
         val mainActivity = activity as MainActivity
         val report = mainActivity.getReport()
@@ -57,8 +71,10 @@ class WriteReportStep5Fragment : Fragment() {
         updateNextButtonState()
 
         binding.nextBtn.setOnClickListener {
-            report.merits = selectedMerits.map { index -> getMeritText(index) }
-            report.dismerits = selectedDismerits.map { index -> getDismeritText(index) }
+            //report.merits = selectedMerits.map { index -> getMeritText(index) }
+            //report.dismerits = selectedDismerits.map { index -> getDismeritText(index) }
+
+            sendSelectedOptionsToServer()
 
             goToNextStep(report)
         }
@@ -66,6 +82,7 @@ class WriteReportStep5Fragment : Fragment() {
         binding.saveButton.setOnClickListener {
             SavingDialog().showSavingDialog(requireContext(), layoutInflater) {
                 Log.d("Saving report", "Report saved successfully: $report")
+                sendSelectedOptionsToServer()
             }
         }
 
@@ -80,6 +97,69 @@ class WriteReportStep5Fragment : Fragment() {
         return binding.root
     }
 
+    // 보고서 단계를 서버에서 가져오는 함수
+    private fun fetchReportStage(reportId: Long, stageOrder: Int) {
+        Log.d("fetchReportStage", "Fetching report stage with reportId: $reportId and stageOrder: $stageOrder")
+
+        // StageDto 객체 생성
+        val stageDto = StageDto(
+            reportId = reportId,
+            stageOrder = stageOrder
+        )
+
+        RetrofitInstance.reportApi.getReportStage(stageDto).enqueue(object :
+            Callback<StageResponseDto> {
+            override fun onResponse(call: Call<StageResponseDto>, response: Response<StageResponseDto>) {
+                if (response.isSuccessful) {
+                    val stageData = response.body()
+                    if (stageData != null) {
+                        Log.d("WriteReportStep5", "Report stage data: $stageData")
+                    } else {
+                        Log.e("WriteReportStep5", "Stage data is null")
+                    }
+                } else {
+                    Log.e("WriteReportStep5", "Failed to fetch stage: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<StageResponseDto>, t: Throwable) {
+                Log.e("WriteReportStep5", "API call failed: ${t.message}", t)
+            }
+        })
+    }
+
+    private fun sendSelectedOptionsToServer() {
+        Log.d("WriteReportStep5", "sendSelectedOptionsToServer called")
+
+        val reportId = reportId // 실제 reportId로 교체
+        val stageOrder = 4 // 현재 단계에 맞게 stageOrder를 설정
+        val base64Images = listOf<Base64Image>() // 필요한 경우 이미지 데이터를 여기에 추가
+
+        // StageDto로 변경
+        val stageRequest = ReportStageDto(
+            reportId = reportId,
+            stageOrder = stageOrder,
+            optionOrders = selectedOptions.toList(), // 선택된 옵션 인덱스를 서버로 전송
+            base64Images = base64Images
+        )
+
+        Log.d("WriteReportStep5", "Stage request data: $stageRequest")
+
+        RetrofitInstance.reportApi.updateReportStage(stageRequest).enqueue(object : Callback<StageResponseDto> {
+            override fun onResponse(call: Call<StageResponseDto>, response: Response<StageResponseDto>) {
+                if (response.isSuccessful) {
+                    Log.d("StageUpdate", "Stage update successful")
+                } else {
+                    Log.e("StageUpdate", "Stage update failed: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<StageResponseDto>, t: Throwable) {
+                Log.e("StageUpdate", "API call failed: ${t.message}", t)
+            }
+        })
+    }
+
     // 이전 프래그먼트로 이동하는 함수
     private fun navigateBack() {
         // 백 스택에 프래그먼트가 있는 경우 이전 프래그먼트로 이동
@@ -92,42 +172,51 @@ class WriteReportStep5Fragment : Fragment() {
     }
 
     private fun setupInitialItemSelections() {
-        // Set up initial item selections with click listeners for merits
-        setupItemSelection(binding.check1, binding.checkTv1, 1, isMerit = true)
-        setupItemSelection(binding.check2, binding.checkTv2, 2, isMerit = true)
-        setupItemSelection(binding.check3, binding.checkTv3, 3, isMerit = true)
-        setupItemSelection(binding.check4, binding.checkTv4, 4, isMerit = true)
-        setupItemSelection(binding.check5, binding.checkTv5, 5, isMerit = true)
-        setupItemSelection(binding.check6, binding.checkTv6, 6, isMerit = true)
-
-        // Set up initial item selections with click listeners for dismerits
-        setupItemSelection(binding.dismerits1, binding.dismeritsTv1, 1, isMerit = false)
-        setupItemSelection(binding.dismerits2, binding.dismeritsTv2, 2, isMerit = false)
-        setupItemSelection(binding.dismerits3, binding.dismeritsTv3, 3, isMerit = false)
-        setupItemSelection(binding.dismerits4, binding.dismeritsTv4, 4, isMerit = false)
-        setupItemSelection(binding.dismerits5, binding.dismeritsTv5, 5, isMerit = false)
-        setupItemSelection(binding.dismerits6, binding.dismeritsTv6, 6, isMerit = false)
+        when (reportType) {
+            "DAILY" -> {
+                binding.headerTitle.text = "어려운 점"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "수업 중 하나는 한 달에 하나씩 과제를 주고 매주 과제 중간 피드백으로 이루어졌습니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "처음에는 과제 발표를 하는 게 부담스러웠는데 매주하다 보니 금방 익숙해졌습니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "강의의 수준이 너무 달라, 난이도가 너무 높은 강의는 따라가는 데 어려웠습니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4,  "영어가 아닌 자국의 언어로 수업하는 강의가 있어 매우 어려웠습니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "여러 가지 언어를 배우고 활용해야 하여 공부해야 할 것이 많습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "같은 수업을 듣는 친구와 소통하기가 어려운 경우가 있었습니다.")
+            }
+            "INTERIM" -> {
+                binding.headerTitle.text = "학습 사항"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "대부분의 과목에서 괜찮은 성적을 받았습니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "출석과 과제, 시험에 꽤 많은 정성을 쏟지 않는다면 과목에 따라 의외로 패스하지 못하는 과목들도 많습니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "생각보다 사소하고 자잘한 것까지 암기해야 하는 경우도 있었습니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "먼저 열심히 하려는 의지를 보여주는 것이 중요합니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "과제나 팀 프로젝트가 많은 과목도 있어서 친구들에게 물어가며, 해결해야 하는 경우도 있습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "교수님과 자유롭게 질문/소통이 가능하니 이를 활용하세요.")
+            }
+            "FINAL" -> {
+                binding.headerTitle.text = "파견교 장점"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "상호 수업 교류가 가능한 점이 정말 큰 장점이다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "상호 대학의 도서관에서도 공부할 수 있는 장점도 존재한다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "상당히 좋은 수업을 들을 수 있다..")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "교환학생들의 위한 프로그램인 ESN 제도도 매우 잘 되어 있다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "주변의 타 대학교와 수업 교환이 잘 되어 파견 대학 이외의 대학에서도 수업을 들을 수 있다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "버디 제도가 잘 되어 있어, 교환학생 생활에 도움을 많이 받을 수 있었다.")
+            }
+        }
     }
 
-    private fun setupItemSelection(imageView: ImageView, textView: TextView, index: Int, isMerit: Boolean) {
+    private fun setupItemSelection(imageView: ImageView, textView: TextView, index: Int, itemText: String) {
+        textView.text = itemText
+        updateItemState(imageView, textView, selectedOptions.contains(index))
+
         val itemLayout = imageView.parent as View
         itemLayout.setOnClickListener {
-            if (isMerit) {
-                if (selectedMerits.contains(index)) {
-                    selectedMerits.remove(index)
-                    updateItemState(imageView, textView, false)
-                } else {
-                    selectedMerits.add(index)
-                    updateItemState(imageView, textView, true)
-                }
+            if (selectedOptions.contains(index)) {
+                selectedOptions.remove(index)
+                selectedOptions.remove(index)
+                updateItemState(imageView, textView, false)
             } else {
-                if (selectedDismerits.contains(index)) {
-                    selectedDismerits.remove(index)
-                    updateItemState(imageView, textView, false)
-                } else {
-                    selectedDismerits.add(index)
-                    updateItemState(imageView, textView, true)
-                }
+                selectedOptions.add(index)
+                updateItemState(imageView, textView, true)
+                selectedOptions.add(index)
             }
             updateNextButtonState()
         }
@@ -142,31 +231,6 @@ class WriteReportStep5Fragment : Fragment() {
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray)) // 기본 텍스트 색상 설정
         }
     }
-
-    private fun getMeritText(index: Int): String {
-        return when (index) {
-            1 -> "대학 생활 중 가장 보람찬 수업"
-            2 -> "발표와 야외 수업 활동이 많아 만족도가 큼"
-            3 -> "시험 부담이 적어 만족도가 큼"
-            4 -> "영어 실력을 향상하기 위한 수업"
-            5 -> "과제 많았음"
-            6 -> "그 과정에서 많은 것을 배울 수 있었음"
-            else -> ""
-        }
-    }
-
-    private fun getDismeritText(index: Int): String {
-        return when (index) {
-            1 -> "대학 생활 중 가장 보람찬 수업"
-            2 -> "발표와 야외 수업 활동이 많아 만족도가 큼"
-            3 -> "시험 부담이 적어 만족도가 큼"
-            4 -> "영어 실력을 향상하기 위한 수업"
-            5 -> "과제 많았음"
-            6 -> "그 과정에서 많은 것을 배울 수 있었음"
-            else -> ""
-        }
-    }
-
 
     private fun addCustomCourseReview(reviewText: String) {
         itemIndex += 1 // 새로운 항목의 인덱스 증가
@@ -215,7 +279,7 @@ class WriteReportStep5Fragment : Fragment() {
         binding.meritsContainer.addView(newItemLayout)
 
         // 새 항목에 대해 클릭 리스너 설정
-        setupItemSelection(newCheckImage, newTextView, itemIndex, isMerit = true)
+        // setupItemSelection(newCheckImage, newTextView, itemIndex, isMerit = true)
     }
 
     // dp를 px로 변환하는 확장 함수
@@ -279,14 +343,14 @@ class WriteReportStep5Fragment : Fragment() {
     }
 
     private fun updateNextButtonState() {
-        if (selectedMerits.isNotEmpty() || selectedDismerits.isNotEmpty()) {
-            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_focus)
-            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.nextBtn.isEnabled = true
+        if (selectedOptions.isNotEmpty()) {
+            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_focus)
+            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            nextstepButton?.isEnabled = true
         } else {
-            binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_previous)
-            binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.nextBtn.isEnabled = false
+            nextstepButton?.setBackgroundResource(R.drawable.report_button_next_previous)
+            nextstepButton?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            nextstepButton?.isEnabled = false
         }
     }
 
@@ -295,6 +359,9 @@ class WriteReportStep5Fragment : Fragment() {
         val bundle = Bundle()
         bundle.putParcelable("report", report) // Report 객체를 번들에 저장
         sixthStep.arguments = bundle
+
+        bundle.putLong("reportId", reportId ?: 0)
+        bundle.putString("reportType", reportType ?: "DAILY")
 
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_frm, sixthStep) // R.id.main_frm은 프래그먼트를 교체할 컨테이너 ID

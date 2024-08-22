@@ -21,13 +21,23 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.student_exchange.databinding.FragmentAddPlanBinding
+import com.example.student_exchange.model.Recurrence
 import com.example.student_exchange.model.Schedule
+import com.example.student_exchange.model.ScheduleRequest
+import com.example.student_exchange.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class AddPlanFragment : Fragment() {
 
     private lateinit var binding: FragmentAddPlanBinding
-    private val selectedTags = mutableSetOf<String>()
+    private val selectedTags = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,7 +97,7 @@ class AddPlanFragment : Fragment() {
         val timePickerDialog = TimePickerDialog(requireContext(), { _, selectedHour, selectedMinute ->
             val amPm = if (selectedHour < 12) "AM" else "PM"
             val hourIn12Format = if (selectedHour % 12 == 0) 12 else selectedHour % 12
-            val time = String.format("%d:%02d %s", hourIn12Format, selectedMinute, amPm)
+            val time = String.format("%d:%02d", hourIn12Format, selectedMinute, amPm)
             button.text = time
         }, hour, minute, false)
 
@@ -187,8 +197,8 @@ class AddPlanFragment : Fragment() {
         newTagButton.setOnClickListener { handleTagClick(newTagButton) }
 
         val layoutParams = LinearLayout.LayoutParams(
-            150,
-            80
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply {
             setMargins(8, 8, 8, 8)
         }
@@ -197,35 +207,106 @@ class AddPlanFragment : Fragment() {
         binding.tagContainer.addView(newTagButton)
     }
 
+    private fun convertToIso8601(dateString: String, timeString: String): String? {
+        return try {
+            // 입력된 날짜와 시간 문자열을 로그로 출력
+            Log.d("AddPlanFragment", "convertToIso8601 - 입력된 날짜: $dateString, 입력된 시간: $timeString")
+
+            // 영어 로케일을 사용하여 날짜와 시간을 파싱하기 위한 형식 설정
+            val englishDateFormat = SimpleDateFormat("M월 d일 h:mm a", Locale.ENGLISH)
+            Log.d("AddPlanFragment", "convertToIso8601 - 날짜 패턴: ${englishDateFormat.toPattern()}")
+
+            // 날짜와 시간을 합쳐서 파싱
+            val fullDateTimeString = "$dateString $timeString".trim()
+            Log.d("AddPlanFragment", "convertToIso8601 - 파싱할 전체 날짜 문자열: $fullDateTimeString")
+
+            val parsedDate = englishDateFormat.parse(fullDateTimeString)
+            Log.d("AddPlanFragment", "convertToIso8601 - 파싱된 날짜 객체: $parsedDate")
+
+            // Calendar를 사용하여 년도를 2024로 설정
+            val calendar = Calendar.getInstance().apply {
+                time = parsedDate ?: throw ParseException("Failed to parse date", 0)
+                set(Calendar.YEAR, 2024)  // 년도를 2024로 고정
+            }
+            Log.d("AddPlanFragment", "convertToIso8601 - 캘린더 객체: $calendar")
+
+            // ISO 8601 형식으로 변환하기 위한 형식 설정
+            val iso8601DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            iso8601DateFormat.timeZone = TimeZone.getTimeZone("UTC") // UTC로 설정
+            Log.d("AddPlanFragment", "convertToIso8601 - ISO 8601 패턴: ${iso8601DateFormat.toPattern()}")
+
+            // ISO 8601 형식으로 변환 후 반환
+            val iso8601String = iso8601DateFormat.format(calendar.time)
+            Log.d("AddPlanFragment", "convertToIso8601 - 최종 ISO 8601 날짜 문자열: $iso8601String")
+
+            return iso8601String
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            Log.e("AddPlanFragment", "convertToIso8601 - 날짜 변환 실패: ${e.message}")
+            return null
+        }
+    }
+
     private fun saveSchedule() {
         val scheduleName = binding.planName.text.toString()
         val scheduleDescription = binding.planDescription.text.toString()
-        val allDay = binding.allDaySwitch.isChecked
-        val startDate = binding.startDate.text.toString()
-        val startTime = binding.startTime.text.toString()
-        val endDate = binding.endDate.text.toString()
-        val endTime = binding.endTime.text.toString()
-        val repeatOption = binding.routineSpinner.selectedItem.toString()
+        val startDate = binding.startDate.text.toString() // 예: "8월 5일"
+        val startTime = binding.startTime.text.toString() // 예: "3:00 PM"
+        val endDate = binding.endDate.text.toString()     // 예: "8월 5일"
+        val endTime = binding.endTime.text.toString()     // 예: "4:00 PM"
 
-        val newSchedule = Schedule(
-            name = scheduleName,
-            description = scheduleDescription,
-            allDay = allDay,
-            startDate = startDate,
-            startTime = startTime,
-            endDate = endDate,
-            endTime = endTime,
-            repeatOption = repeatOption
+        // ISO 8601 형식으로 변환
+        val fullStartTime = convertToIso8601(startDate, startTime)
+        val fullEndTime = convertToIso8601(endDate, endTime)
+
+        if (fullStartTime == null || fullEndTime == null) {
+            Log.e("AddPlanFragment", "날짜 변환에 실패했습니다.")
+            return
+        }
+
+        // ScheduleRequest 객체 생성
+        val newScheduleRequest = ScheduleRequest(
+            userId = 1, // 사용자의 실제 ID로 설정
+            scheduleName = scheduleName,
+            scheduleDescription = scheduleDescription,
+            startTime = fullStartTime,
+            endTime = fullEndTime,
+            tagNames = selectedTags // 사용자가 선택한 태그 리스트 사용
         )
 
-        // 콘솔 로그 추가
-        Log.d("AddPlanFragment", "새 일정 저장: $newSchedule")
+        Log.d("AddPlanFragment", "새 일정 저장: $newScheduleRequest")
 
-        (activity as? MainActivity)?.addSchedule(newSchedule)
+        // Retrofit을 사용한 API 호출
+        RetrofitInstance.scheduleApi.saveSchedule(newScheduleRequest).enqueue(object : Callback<Map<String, Int>> {
+            override fun onResponse(call: Call<Map<String, Int>>, response: Response<Map<String, Int>>) {
+                if (response.isSuccessful) {
+                    val scheduleId = response.body()?.get("scheduleId")
+                    Log.d("AddPlanFragment", "일정 저장 성공: $scheduleId")
 
-        // 일정 저장 후 TravelFragment로 전환
-        (activity as MainActivity).supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, (activity as MainActivity).travelFragment)
-            .commitAllowingStateLoss()
+                    if (scheduleId != null) {
+                        // RecordFragment에 전달할 Bundle 생성
+                        val bundle = Bundle().apply {
+                            putInt("SCHEDULE_ID", scheduleId)
+                        }
+
+                        // RecordFragment 생성 및 Bundle 전달
+                        val recordFragment = RecordFragment().apply {
+                            arguments = bundle
+                        }
+
+                        // 일정 저장 후 RecordFragment로 전환
+                        (activity as MainActivity).supportFragmentManager.beginTransaction()
+                            .replace(R.id.main_frm, recordFragment)
+                            .commitAllowingStateLoss()
+                    }
+                } else {
+                    Log.e("AddPlanFragment", "일정 저장 실패: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Map<String, Int>>, t: Throwable) {
+                Log.e("AddPlanFragment", "API 호출 실패", t)
+            }
+        })
     }
 }

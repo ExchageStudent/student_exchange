@@ -1,7 +1,7 @@
 package com.example.student_exchange.model
 
 data class Schedule(
-    val name: String,
+    val scheduleName: String,
     val description: String,
     val allDay: Boolean,
     val startDate: String,
@@ -9,4 +9,9 @@ data class Schedule(
     val endDate: String,
     val endTime: String,
     val repeatOption: String
+)
+
+data class ScheduleShow(
+    val scheduleName: String,
+    val startTime: String,
 )

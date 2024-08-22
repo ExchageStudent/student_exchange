@@ -26,9 +26,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.student_exchange.adapter.Base64Image
+import com.example.student_exchange.adapter.ReportStageDto
+import com.example.student_exchange.adapter.StageDto
+import com.example.student_exchange.adapter.StageResponseDto
 import com.example.student_exchange.databinding.FragmentWriteReportStep3Binding
 import com.example.student_exchange.model.Report
+import com.example.student_exchange.network.RetrofitInstance
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class WriteReportStep3Fragment : Fragment() {
@@ -40,11 +48,22 @@ class WriteReportStep3Fragment : Fragment() {
     private val maxPhotos = 4
     private val photoUris = mutableListOf<Uri>()
 
+    private var reportId: Long = 0
+    private lateinit var reportType: String
+    private var selectedOptions = mutableSetOf<Int>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWriteReportStep3Binding.inflate(inflater, container, false)
+
+        // reportId 받아오기
+        reportId = arguments?.getLong("reportId") ?: 0
+        reportType = arguments?.getString("reportType") ?: "DAILY"
+
+        fetchReportStage(reportId, 2)
+
         val mainActivity = activity as MainActivity
         val report = mainActivity.getReport()
 
@@ -63,15 +82,16 @@ class WriteReportStep3Fragment : Fragment() {
         updateNextButtonState()
 
         binding.nextBtn.setOnClickListener {
-            report.etcTitle = binding.etcActivityName.text.toString()
             report.etcReview = selectedItemsText.joinToString("\n")
             Log.d("WriteReportStep3", "Report Data: $report")
+            sendSelectedOptionsToServer()
             goToNextStep(report)
         }
 
         binding.saveButton.setOnClickListener {
             SavingDialog().showSavingDialog(requireContext(), layoutInflater) {
                 Log.d("Saving report", "Report saved successfully: $report")
+                sendSelectedOptionsToServer()
             }
         }
 
@@ -86,6 +106,69 @@ class WriteReportStep3Fragment : Fragment() {
         return binding.root
     }
 
+    // 보고서 단계를 서버에서 가져오는 함수
+    private fun fetchReportStage(reportId: Long, stageOrder: Int) {
+        Log.d("fetchReportStage", "Fetching report stage with reportId: $reportId and stageOrder: $stageOrder")
+
+        // StageDto 객체 생성
+        val stageDto = StageDto(
+            reportId = reportId,
+            stageOrder = stageOrder
+        )
+
+        RetrofitInstance.reportApi.getReportStage(stageDto).enqueue(object : Callback<StageResponseDto> {
+            override fun onResponse(call: Call<StageResponseDto>, response: Response<StageResponseDto>) {
+                if (response.isSuccessful) {
+                    val stageData = response.body()
+                    if (stageData != null) {
+                        Log.d("WriteReportStep3", "Report stage data: $stageData")
+                    } else {
+                        Log.e("WriteReportStep3", "Stage data is null")
+                    }
+                } else {
+                    Log.e("WriteReportStep3", "Failed to fetch stage: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<StageResponseDto>, t: Throwable) {
+                Log.e("WriteReportStep3", "API call failed: ${t.message}", t)
+            }
+        })
+    }
+
+    private fun sendSelectedOptionsToServer() {
+        Log.d("WriteReportStep3", "sendSelectedOptionsToServer called")
+
+        val reportId = reportId // 실제 reportId로 교체
+        val stageOrder = 2 // 현재 단계에 맞게 stageOrder를 설정
+        val base64Images = listOf<Base64Image>() // 필요한 경우 이미지 데이터를 여기에 추가
+
+        // StageDto로 변경
+        val stageRequest = ReportStageDto(
+            reportId = reportId,
+            stageOrder = stageOrder,
+            optionOrders = selectedOptions.toList(), // 선택된 옵션 인덱스를 서버로 전송
+            base64Images = base64Images
+        )
+
+        Log.d("WriteReportStep3", "Stage request data: $stageRequest")
+
+        RetrofitInstance.reportApi.updateReportStage(stageRequest).enqueue(object :
+            Callback<StageResponseDto> {
+            override fun onResponse(call: Call<StageResponseDto>, response: Response<StageResponseDto>) {
+                if (response.isSuccessful) {
+                    Log.d("StageUpdate", "Stage update successful")
+                } else {
+                    Log.e("StageUpdate", "Stage update failed: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<StageResponseDto>, t: Throwable) {
+                Log.e("StageUpdate", "API call failed: ${t.message}", t)
+            }
+        })
+    }
+
     // 이전 프래그먼트로 이동하는 함수
     private fun navigateBack() {
         // 백 스택에 프래그먼트가 있는 경우 이전 프래그먼트로 이동
@@ -98,24 +181,53 @@ class WriteReportStep3Fragment : Fragment() {
     }
 
     private fun setupInitialItemSelections() {
-        // Set up initial item selections with click listeners
-        setupItemSelection(binding.check1, binding.checkTv1, 1, "대학 생활 중 가장 보람찬 수업")
-        setupItemSelection(binding.check2, binding.checkTv2, 2, "발표와 야외 수업 활동이 많아 만족도가 큼")
-        setupItemSelection(binding.check3, binding.checkTv3, 3, "시험 부담이 적어 만족도가 큼")
-        setupItemSelection(binding.check4, binding.checkTv4, 4, "영어 실력을 향상하기 위한 수업")
-        setupItemSelection(binding.check5, binding.checkTv5, 5, "과제가 많았음")
-        setupItemSelection(binding.check6, binding.checkTv6, 6, "그 과정에서 많은 것을 배울 수 있었음")
+        when (reportType) {
+            "DAILY" -> {
+                binding.heaterTitle.text = "수강 과목"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "대학 생활 중 가장 보람찬 수업이었습니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "발표와 야외 수업 활동이 많아 만족도가 큽니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "시험 부담이 적어 만족도가 큽니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "영어 실력을 향상하기 위한 수업이었습니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "과제 많았습니다. 많은 시간을 투자해야 했습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "하지만 그 과정에서 많은 것을 배울 수 있었습니다.")
+            }
+            "INTERIM" -> {
+                binding.heaterTitle.text = "교내 참여 활동"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "다양한 국적의 친구들과 어울릴 수 있었습니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "언어 능력 향상에 목적을 둔 동아리로서, 빠르게 언어 습득이 가능합니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "학기 시작 직전에 교환학생 교류 행사 1번, 단과대별 교류 이벤트를 진행합니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "학교에 운동 시설과 프로그램이 너무 잘 되어있었으며, 운동 동아리가 매우 기억에 남습니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "현지 친구들과 어울려서 진행하며, 친목을 다질 수 있었습니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "처음에는 가벼운 마음으로 동아리 활동에 임했으나 이후부터는 진심을 다해 활동하고 있는 자신을 발견할 수 있었습니다.")
+            }
+            "FINAL" -> {
+                binding.heaterTitle.text = "출국 전 준비사항과 주의사항"
+                setupItemSelection(binding.check1, binding.checkTv1, 1, "비자를 발급받기 위해서는 파견 학교에 입학 허가서를 받아야 합니다.")
+                setupItemSelection(binding.check2, binding.checkTv2, 2, "대사관이 지정한 번역가 에게 번역공증을 받아야 합니다.")
+                setupItemSelection(binding.check3, binding.checkTv3, 3, "기숙사는 학교 근처에 있는 곳으로 선택하는 것이 좋습니다.")
+                setupItemSelection(binding.check4, binding.checkTv4, 4, "비자 발급은 최대한 빨리하는 것이 좋습니다. 서류와 절차가 매우 복잡했습니다.")
+                setupItemSelection(binding.check5, binding.checkTv5, 5, "최악의 경우 비자 발급이 늦어져서 비행기를 못 타서 연기를 해야 하는 경우가 발생합니다.")
+                setupItemSelection(binding.check6, binding.checkTv6, 6, "항공권 구입은 빨리 준비할수록 저렴합니다.")
+            }
+        }
     }
 
+
     private fun setupItemSelection(imageView: ImageView, textView: TextView, index: Int, itemText: String) {
+
+        textView.text = itemText
+        updateItemState(imageView, textView, selectedOptions.contains(index))
+
         val itemLayout = imageView.parent as View
         itemLayout.setOnClickListener {
-            if (selectedItemsText.contains(itemText)) {
-                selectedItemsText.remove(itemText)
+            if (selectedOptions.contains(index)) {
+                selectedOptions.remove(index)
+                selectedOptions.remove(index)
                 updateItemState(imageView, textView, false)
             } else {
-                selectedItemsText.add(itemText)
+                selectedOptions.add(index)
                 updateItemState(imageView, textView, true)
+                selectedOptions.add(index)
             }
             updateNextButtonState() // 항목 선택 상태 변경 시 버튼 상태 업데이트
         }
@@ -289,7 +401,7 @@ class WriteReportStep3Fragment : Fragment() {
     }
 
     private fun updateNextButtonState() {
-        if (selectedItemsText.isNotEmpty()) {
+        if (selectedOptions.isNotEmpty()) {
             binding.nextBtn.setBackgroundResource(R.drawable.report_button_next_focus)
             binding.nextBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             binding.nextBtn.isEnabled = true
@@ -306,6 +418,10 @@ class WriteReportStep3Fragment : Fragment() {
         val bundle = Bundle()
         bundle.putParcelable("report", report) // Report 객체를 번들에 저장
         fourthStep.arguments = bundle
+
+        bundle.putLong("reportId", reportId ?: 0)
+        bundle.putString("reportType", reportType ?: "DAILY")
+
         parentFragmentManager.beginTransaction()
             .replace(R.id.main_frm, fourthStep)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
