@@ -97,6 +97,11 @@ dependencies {
     // 다이얼로그 맨 아래에 위치
     implementation ("com.google.android.material:material:1.4.0")
 
+    // Room 라이브러리 추가
+    val room_version = "2.5.0" // Room의 최신 버전을 확인하고 업데이트하세요
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+
     // 서버 연동
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

@@ -35,9 +35,9 @@ class MyPostsFragment : Fragment() {
                 title = "7일 동안 파리 정복하기✨",
                 detail = "파리 6박 7일",
                 imageUrls = listOf(
-                    "https://example.com/image1.jpg",
-                    "https://example.com/image2.jpg",
-                    "https://example.com/image3.jpg"
+                    "app/src/main/res/drawable/germany.png",
+                    "app/src/main/res/drawable/city_paris.png",
+                    "app/src/main/res/drawable/switz.png"
                 ),
                 viewCount = 120,
                 scrapCount = 120,

@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.student_exchange.databinding.FragmentWriteReportStep6Binding
+import com.example.student_exchange.model.Report
 
 class WriteReportStep6Fragment : Fragment() {
     private lateinit var binding: FragmentWriteReportStep6Binding
@@ -134,5 +135,4 @@ class WriteReportStep6Fragment : Fragment() {
         (activity as MainActivity).hideBottomNavigation()
     }
 }
-
 

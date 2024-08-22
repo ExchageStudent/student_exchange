@@ -1,59 +1,60 @@
 package com.example.student_exchange
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class MainTopicFragment : BottomSheetDialogFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MainTopicFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MainTopicFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    // Define an interface to communicate with the MainWriteFragment
+    interface OnTopicSelectedListener {
+        fun onTopicSelected(selectedTopic: String)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var listener: OnTopicSelectedListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // Check if the host fragment (MainWriteFragment) implements the interface
+        listener = targetFragment as? OnTopicSelectedListener
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_topic, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_main_topic, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainTopicFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainTopicFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Set click listeners on each TextView for different topics
+        view.findViewById<TextView>(R.id.tvCost).setOnClickListener {
+            listener?.onTopicSelected("가성비")
+            dismiss() // Close the dialog
+        }
+
+        view.findViewById<TextView>(R.id.tvLocal).setOnClickListener {
+            listener?.onTopicSelected("로컬")
+            dismiss()
+        }
+
+        view.findViewById<TextView>(R.id.tvFood).setOnClickListener {
+            listener?.onTopicSelected("맛집")
+            dismiss()
+        }
+
+        view.findViewById<TextView>(R.id.tvLong).setOnClickListener {
+            listener?.onTopicSelected("장기여행")
+            dismiss()
+        }
+
+        view.findViewById<TextView>(R.id.tvHistory).setOnClickListener {
+            listener?.onTopicSelected("역사")
+            dismiss()
+        }
+
+        return view
     }
 }

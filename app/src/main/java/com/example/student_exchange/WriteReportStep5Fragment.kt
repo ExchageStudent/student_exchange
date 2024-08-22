@@ -23,6 +23,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.student_exchange.databinding.FragmentWriteReportStep5Binding
+import com.example.student_exchange.model.Report
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class WriteReportStep5Fragment : Fragment() {

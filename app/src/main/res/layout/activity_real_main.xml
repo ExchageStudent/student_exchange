@@ -3,14 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:id="@+id/realMain"
+    >
+
+    <!-- FrameLayout for Fragments -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     <!-- ScrollView for content -->
     <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/main_bnv"
-        android:padding="16dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="16dp"
+        android:layout_above="@id/main_bnv">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,9 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:layout_marginTop="16dp"
-                    >
+                    android:paddingLeft="16dp"
+                    android:layout_marginTop="16dp">
 
                     <!-- Main Logo -->
                     <ImageView
@@ -45,14 +56,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/name_logo"
-                        android:layout_gravity="start"
-                         />
+                        android:layout_gravity="start" />
 
                     <!-- Main Bell Icon -->
                     <ImageView
                         android:id="@+id/main_bell"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:src="@drawable/main_bell"
                         android:layout_gravity="end"
                         android:layout_marginStart="190dp"
@@ -67,7 +77,6 @@
                         android:layout_gravity="end" />
 
                 </LinearLayout>
-
 
                 <!-- Profile Picture and Greetings -->
                 <TextView
@@ -90,7 +99,7 @@
                     android:gravity="center">
 
                     <LinearLayout
-                        android:id="@id/benefit_student"
+                        android:id="@+id/benefit_student"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -107,7 +116,7 @@
 
                         <!-- 텍스트 -->
                         <TextView
-                            android:id="@+id/benefit_student"
+                            android:id="@+id/benefit_student_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="학생혜택"
@@ -116,7 +125,6 @@
                             android:fontFamily="@font/pretendardsemibold"
                             android:gravity="center" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:id="@+id/contactFriend"
@@ -154,35 +162,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="추천 코스"
+                android:fontFamily="@font/pretendardbold"
                 android:textSize="20sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/titleblack" />
 
             <!-- RecyclerView for Recommendations -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/purposeRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginVertical="8dp"
                 android:orientation="horizontal" />
 
             <!-- 목적에 맞는 코스 Section -->
             <TextView
+                android:id="@+id/tvpurpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="목적에 맞는 코스"
                 android:textSize="20sp"
-                android:textColor="@color/black"
+                android:fontFamily="@font/pretendardbold"
+                android:textColor="@color/titleblack"
                 android:layout_marginTop="16dp" />
 
             <!-- Horizontal RecyclerView for Courses -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/coursesRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginVertical="8dp"
                 android:orientation="horizontal" />
-
-
 
             <!-- 인기 여행 코스 Section -->
             <TextView
@@ -190,19 +201,22 @@
                 android:layout_height="wrap_content"
                 android:text="인기 여행 코스"
                 android:textSize="20sp"
-                android:textColor="@color/black"
+                android:fontFamily="@font/pretendardbold"
+                android:textColor="@color/titleblack"
                 android:layout_marginTop="16dp" />
 
             <!-- Vertical RecyclerView for Popular Courses -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularCoursesRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginVertical="8dp"
                 android:orientation="vertical" />
 
             <!-- Adjusted ImageView with Extra Bottom Margin -->
             <ImageView
+                android:id="@+id/main_write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/main_write"

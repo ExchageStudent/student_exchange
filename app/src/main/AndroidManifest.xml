@@ -18,6 +18,9 @@
             android:name=".MyPostsFragment"
             android:exported="false" />
         <activity
+            android:name=".RecordFragment"
+            android:exported="false" />
+        <activity
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity
@@ -26,8 +29,13 @@
         <activity
             android:name=".WritePostFragment"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RealMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="248dp"
+    android:layout_height="273dp"
+    android:padding="5dp">
+
+
+
+    <ImageView
+        android:id="@+id/ivcancle"
+        android:layout_width="24dp"
+        android:layout_height="23.58dp"
+        android:layout_marginStart="200dp"
+        android:src="@drawable/btn_cancle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="정말 글을 삭제하시겠습니까?"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendardbold"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="다시 복구할 수 없습니다."
+            android:textColor="#979797"
+            android:textSize="14sp"
+            android:fontFamily="@font/pretendardmedium"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/info"
+        android:layout_gravity="bottom"
+        android:gravity="center">
+
+
+        <!-- 텍스트 -->
+        <TextView
+            android:id="@+id/benefit_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:textSize="14sp"
+            android:textColor="@color/titleblack"
+            android:fontFamily="@font/pretendardsemibold"
+            android:gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/delete_background"
+            />
+
+
+
+        <!-- 텍스트 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="취소"
+            android:textSize="14sp"
+            android:textColor="@color/titleblack"
+            android:fontFamily="@font/pretendardsemibold"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/delete_background"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -20,4 +20,13 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+
+
+    <style name="TopAlignedBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:layout_gravity">top</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="behavior_peekHeight">300dp</item>
+        <item name="android:background">?android:attr/windowBackground</item>
+    </style>
+
 </resources>

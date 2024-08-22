@@ -1,21 +1,21 @@
+package com.example.student_exchange
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.student_exchange.R
+import com.example.student_exchange.adapter.CountryAdapter
+import com.example.student_exchange.model.Country
 
-class AddLocationFragment : Fragment() {
+class AddLocationFragment : DialogFragment() {
 
     private lateinit var countryAdapter: CountryAdapter
     private var selectedCountries = mutableListOf<Country>()
@@ -33,12 +33,14 @@ class AddLocationFragment : Fragment() {
         val selectTextView = view.findViewById<TextView>(R.id.btnSelectCountry)
         selectedCountriesLayout = view.findViewById(R.id.selectedCountriesLayout)
 
+        // RecyclerView와 어댑터 설정
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         countryAdapter = CountryAdapter(emptyList()) { country ->
             selectCountry(country)
         }
         recyclerView.adapter = countryAdapter
 
+        // 검색 EditText에 텍스트 변화 감지
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
@@ -54,8 +56,10 @@ class AddLocationFragment : Fragment() {
             }
         })
 
+        // 초기에는 최근 검색어 표시
         displayRecentSearches()
 
+        // 선택 완료 버튼 클릭 시 처리
         selectTextView.setOnClickListener {
             goToMainWriteFragment()
         }
@@ -63,6 +67,7 @@ class AddLocationFragment : Fragment() {
         return view
     }
 
+    // 검색 필터링 로직
     private fun filterCountries(query: String) {
         val allCountries = listOf(
             Country("프랑스", "파리, 음식점"),
@@ -74,21 +79,24 @@ class AddLocationFragment : Fragment() {
         countryAdapter.updateCountries(filteredCountries)
     }
 
+    // 최근 검색어 표시
     private fun displayRecentSearches() {
         val recentCountries = recentSearches.map { Country(it, "최근 검색") }
         countryAdapter.updateCountries(recentCountries)
     }
 
+    // 선택한 국가를 추가하는 함수
     private fun selectCountry(country: Country) {
         if (selectedCountries.contains(country)) return // 이미 선택된 경우 무시
 
         selectedCountries.add(country)
 
-        // 선택된 국가를 아이콘 형태로 추가
+        // 선택된 국가를 레이아웃에 추가
         val countryView = LayoutInflater.from(context).inflate(R.layout.item_selected_country, selectedCountriesLayout, false)
         val countryTextView = countryView.findViewById<TextView>(R.id.tvSelectedCountry)
         countryTextView.text = country.name
 
+        // 국가 제거 버튼
         val removeButton = countryView.findViewById<TextView>(R.id.tvSelectedCountry)
         removeButton.setOnClickListener {
             selectedCountries.remove(country)
@@ -98,42 +106,10 @@ class AddLocationFragment : Fragment() {
         selectedCountriesLayout.addView(countryView)
     }
 
+    // MainWriteFragment로 선택한 국가 전송하는 함수
     private fun goToMainWriteFragment() {
-        val selectedCountryNames = selectedCountries.joinToString(", ") { it.name }
-        val mainWriteFragment = parentFragmentManager.findFragmentByTag("MainWriteFragment") as? MainWriteFragment
-        mainWriteFragment?.updateSelectedCountry(selectedCountryNames)
-        parentFragmentManager.popBackStack()
-    }
-}
-
-// Country 데이터 클래스
-data class Country(val name: String, val description: String)
-
-// CountryAdapter 클래스
-class CountryAdapter(private var countries: List<Country>, private val onClick: (Country) -> Unit) :
-    RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
-
-    fun updateCountries(newCountries: List<Country>) {
-        countries = newCountries
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_country, parent, false)
-        return CountryViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.bind(countries[position])
-    }
-
-    override fun getItemCount(): Int = countries.size
-
-    inner class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(country: Country) {
-            itemView.findViewById<TextView>(R.id.tvCountryName).text = country.name
-            itemView.findViewById<TextView>(R.id.tvCountryDescription).text = country.description
-            itemView.setOnClickListener { onClick(country) }
-        }
+        val mainWriteFragment = targetFragment as? MainWriteFragment
+        mainWriteFragment?.updateSelectedCountry(selectedCountries.joinToString(", ") { it.name })
+        dismiss()
     }
 }

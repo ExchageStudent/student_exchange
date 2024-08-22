@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_exchange.databinding.ActivityMainBinding
+import com.example.student_exchange.model.Report
 import com.example.student_exchange.model.Schedule
 
 class MainActivity : AppCompatActivity() {
@@ -45,11 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.mainBnv.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.travelFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        // 설정해둔 프래그먼트 이름으로 main_frm 이후로 변경하기
-                        .replace(R.id.main_frm, travelFragment)
-                        .commitAllowingStateLoss()
+                R.id.realmainActivity -> {
+                    startActivity(Intent(this, RealMainActivity::class.java))
                     return@setOnItemSelectedListener true
                 }
                 R.id.recordFragment -> {
@@ -58,10 +56,8 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
-                R.id.communityFragment -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, CommunityFragment())
-                        .commitAllowingStateLoss()
+                R.id.communityActivity -> {
+                    startActivity(Intent(this, CommunityActivity::class.java))
                     return@setOnItemSelectedListener true
                 }
                 R.id.mypageActivity -> {
